@@ -1,0 +1,27 @@
+{
+  "post_matric_scholarship": {
+    "name": "Central Sector Post-Matric Scholarship Scheme",
+    "ministry": "Ministry of Social Justice & Empowerment",
+    "max_income_ceiling": 250000,
+    "eligible_categories": ["OBC", "SC", "ST", "EWS"],
+    "required_documents": [
+      "Income Certificate issued by Tahsildar / SDM",
+      "State Domicile Certificate",
+      "Marksheet of previous qualifying exam",
+      "Aadhaar card linked with bank account (DBT)"
+    ],
+    "source_url": "https://scholarships.gov.in"
+  },
+  "pm_kisan": {
+    "name": "PM Kisan Samman Nidhi Scheme",
+    "ministry": "Ministry of Agriculture & Farmers Welfare",
+    "max_income_ceiling": 500000,
+    "eligible_categories": ["GEN", "OBC", "SC", "ST", "EWS"],
+    "required_documents": [
+      "Landholding Record (Khata/Khasra)",
+      "Aadhaar Card",
+      "Bank Account details"
+    ],
+    "source_url": "https://pmkisan.gov.in"
+  }
+}

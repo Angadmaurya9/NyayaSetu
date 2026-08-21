@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scheme Eligibility Checker — NyayaSetu</title>
+  <meta name="description" content="Check eligibility for government welfare schemes using official guidelines and deterministic rules.">
+  
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/schemes.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="/" class="brand-logo">
+        <div class="logo-icon">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M4 19C4 19 8 13 12 13C16 13 20 19 20 19"></path>
+            <path d="M12 4V13"></path>
+            <path d="M6 9L18 9"></path>
+          </svg>
+        </div>
+        <div>
+          <span>NyayaSetu</span>
+          <span class="brand-subtext">Scheme Checker</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/pages/rights.html" class="nav-link">Rights Navigator</a></li>
+        <li><a href="/pages/rti.html" class="nav-link">RTI Builder</a></li>
+        <li><a href="/pages/schemes.html" class="nav-link active">Schemes</a></li>
+        <li><a href="/pages/forms.html" class="nav-link">Form Filler</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="/" class="btn btn-sm btn-outline">← Back to Main</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="app-main" class="container-narrow" style="padding-top: 2.5rem;">
+
+    <div class="stepper">
+      <div class="step-item active" id="step-indicator-1">
+        <div class="step-number">1</div>
+        <span class="step-label">Select Scheme</span>
+      </div>
+      <div class="step-item" id="step-indicator-2">
+        <div class="step-number">2</div>
+        <span class="step-label">Citizen Profile</span>
+      </div>
+      <div class="step-item" id="step-indicator-3">
+        <div class="step-number">3</div>
+        <span class="step-label">Evaluation</span>
+      </div>
+      <div class="step-item" id="step-indicator-4">
+        <div class="step-number">4</div>
+        <span class="step-label">Result & Documents</span>
+      </div>
+    </div>
+
+    <!-- Step 1: Select or Search Scheme -->
+    <div id="step-view-1">
+      <div class="card">
+        <div class="card-header">
+          <h2>1. Select Welfare Scheme</h2>
+          <p>Choose a government welfare scheme or describe what financial/educational assistance you need.</p>
+        </div>
+
+        <form id="scheme-step-1-form" onsubmit="event.preventDefault();">
+          <div class="form-group">
+            <label for="scheme-select" class="form-label">Featured Government Schemes <span class="required">*</span></label>
+            <select id="scheme-select" class="form-control">
+              <option value="post_matric_scholarship">Post-Matric Scholarship Scheme (Higher Education Students)</option>
+              <option value="pm_kisan">PM Kisan Samman Nidhi (Farmer Financial Benefit)</option>
+              <option value="pm_awas_yojana">PM Awas Yojana (Housing Assistance)</option>
+              <option value="bocw_welfare">BOCW Construction Worker Welfare Scheme</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="scheme-query-alt" class="form-label">Or describe your situation in your own words</label>
+            <input type="text" id="scheme-query-alt" class="form-control" placeholder="e.g. I am a BCA student with annual family income under 2.5 Lakhs...">
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; margin-top: 1.5rem;">
+            <button type="button" class="btn btn-primary btn-lg" id="scheme-next-btn-1">
+              <span>Continue to Profile Questions →</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Step 2: Profile Criteria Intake -->
+    <div id="step-view-2" style="display: none;">
+      <div class="card">
+        <div class="card-header">
+          <h2>2. Tell Us About Your Profile</h2>
+          <p>We use deterministic rule checks combined with official guidelines to evaluate eligibility.</p>
+        </div>
+
+        <form id="scheme-step-2-form" onsubmit="event.preventDefault();">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label for="profile-state" class="form-label">State of Domicile <span class="required">*</span></label>
+              <input type="text" id="profile-state" class="form-control" placeholder="e.g. Uttar Pradesh, Bihar, MP" required>
+            </div>
+            <div class="form-group">
+              <label for="profile-category" class="form-label">Social Category <span class="required">*</span></label>
+              <select id="profile-category" class="form-control">
+                <option value="GEN">General</option>
+                <option value="OBC">OBC</option>
+                <option value="SC">SC</option>
+                <option value="ST">ST</option>
+                <option value="EWS">EWS</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label for="profile-income" class="form-label">Annual Family Income (₹) <span class="required">*</span></label>
+              <input type="number" id="profile-income" class="form-control" placeholder="e.g. 180000" required>
+            </div>
+            <div class="form-group">
+              <label for="profile-education" class="form-label">Current Course / Occupation <span class="required">*</span></label>
+              <input type="text" id="profile-education" class="form-control" placeholder="e.g. BCA / Degree / Farmer" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="profile-enrolled" class="form-label">Are you enrolled in a recognized institution / portal?</label>
+            <select id="profile-enrolled" class="form-control">
+              <option value="yes">Yes, fully enrolled with valid Roll/Aadhaar</option>
+              <option value="no">No / Pending admission</option>
+            </select>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; margin-top: 1.5rem;">
+            <button type="button" class="btn btn-outline" onclick="Navigation.goToStep(1)">← Back</button>
+            <button type="button" class="btn btn-primary btn-lg" id="scheme-check-btn">
+              <span>Evaluate Eligibility →</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Step 3 & 4: Result Container -->
+    <div id="step-view-3" style="display: none;">
+      <div id="scheme-results-container">
+        <!-- Dynamically rendered by schemes.js -->
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer" style="margin-top: 4rem;">
+    <div class="container text-center" style="font-size: 0.85rem; color: #94A3B8;">
+      © 2026 NyayaSetu • Scheme Checker Workspace
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/navigation.js"></script>
+  <script src="/js/validation.js"></script>
+  <script src="/js/schemes.js"></script>
+</body>
+</html>
