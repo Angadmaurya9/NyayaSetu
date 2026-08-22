@@ -18,7 +18,7 @@
   <header class="navbar">
     <div class="container navbar-container">
       <a href="/" class="brand-logo">
-        <div class="logo-icon">
+        <div class="logo-icon" style="background-color: var(--accent-rights);">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <path d="M4 19C4 19 8 13 12 13C16 13 20 19 20 19"></path>
             <path d="M12 4V13"></path>
@@ -40,110 +40,153 @@
       </ul>
 
       <div class="nav-actions">
-        <a href="/" class="btn btn-sm btn-outline">← Back to Main</a>
+        <a href="/" class="btn btn-sm btn-outline">← Back Home</a>
+        <button class="nav-toggle-btn" id="nav-toggle-btn" aria-label="Toggle menu">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
       </div>
     </div>
   </header>
 
-  <main id="app-main" class="container-narrow" style="padding-top: 2.5rem;">
+  <main id="app-main" class="container-narrow" style="padding-top: 2rem;">
 
     <!-- Case Workspace Header -->
-    <div class="card" style="margin-bottom: 1.5rem; border-top: 4px solid var(--accent-terracotta);">
+    <div class="card" style="border-top: 4px solid var(--accent-rights);">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
         <div>
           <span class="badge badge-neutral">CIVIC ACTION WORKSPACE</span>
-          <h1 style="font-size: 1.75rem; margin-top: 0.35rem;" id="case-title">Tenant–Landlord Deposit Dispute</h1>
+          <h1 style="font-size: 1.75rem; margin-top: 0.35rem; color: var(--primary-navy);" id="case-title">Tenant–Landlord Security Deposit Dispute</h1>
         </div>
         <div>
-          <span class="badge badge-success">Strong Source Support</span>
+          <span class="badge badge-success">Official Source Support: Verified</span>
         </div>
       </div>
     </div>
 
-    <!-- What We Understand -->
-    <div class="card" style="margin-bottom: 1.5rem;">
-      <h3>What We Understand</h3>
-      <p style="margin-top: 0.5rem;" id="case-understanding">
-        You vacated your rented premises after serving the required notice period. However, your landlord has not refunded the security deposit within the agreed timeline.
+    <!-- 1. YOUR PROBLEM -->
+    <div class="card">
+      <div class="card-header">
+        <h3 style="font-size: 1.15rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--primary-navy);">YOUR PROBLEM</h3>
+      </div>
+      <p style="font-size: 1.05rem; color: var(--text-primary);" id="case-understanding">
+        You vacated your rented premises after serving notice. However, your landlord has not refunded the security deposit within the mandatory statutory period.
       </p>
     </div>
 
-    <!-- What This May Involve -->
-    <div class="card" style="margin-bottom: 1.5rem;">
-      <h3>What This May Involve</h3>
-      <p style="margin-top: 0.5rem;" id="case-involve">
-        Under standard rental regulations and Model Tenancy Act guidelines, security deposits must be returned upon physical possession handover, minus documented repair costs.
+    <!-- 2. WHAT THIS MAY INVOLVE -->
+    <div class="card">
+      <div class="card-header">
+        <h3 style="font-size: 1.15rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--primary-navy);">WHAT THIS MAY INVOLVE</h3>
+      </div>
+      <p style="font-size: 1rem; color: var(--text-primary); margin-bottom: 1rem;" id="case-involve">
+        Under standard rental regulations and Model Tenancy Act principles, security deposits must be returned upon physical possession handover, minus documented repair costs specified in writing.
       </p>
+      
+      <div class="alert alert-info">
+        <div>
+          <strong>Statutory Provision:</strong> Security deposit deductions must be itemized in writing within 30 days. Unreasonable or non-itemized retention is impermissible.
+        </div>
+      </div>
     </div>
 
-    <!-- Your Next Steps -->
-    <div class="card" style="margin-bottom: 1.5rem;">
-      <h3>Your Next Steps</h3>
+    <!-- 3. YOUR NEXT STEPS (Highest Visual Emphasis) -->
+    <div class="card" style="border: 2px solid var(--accent-rights); background-color: var(--accent-rights-light); box-shadow: var(--shadow-md);">
+      <div class="card-header" style="border-bottom: 1px solid var(--accent-rights-border); padding-bottom: 0.75rem; margin-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="badge" style="background-color: var(--accent-rights); color: #FFFFFF;">HIGH PRIORITY ACTION</span>
+          <h3 style="font-size: 1.25rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--primary-navy); margin: 0;">YOUR NEXT STEPS</h3>
+        </div>
+      </div>
       <div class="action-plan-list" id="case-steps">
         <div class="action-step-item">
-          <div class="step-num-badge">1</div>
+          <div class="step-num-badge">01</div>
           <div>
-            <h4>Issue Formal Demand Notice</h4>
-            <p>Send a written notice giving 7 days to process deposit refund.</p>
+            <h4 style="font-size: 1.05rem; margin-bottom: 0.25rem;">Keep Rental Agreement & Deposit Proof</h4>
+            <p style="font-size: 0.925rem; color: var(--text-secondary);">Organize bank payment receipts, lease agreement copy, and vacate notice.</p>
           </div>
         </div>
         <div class="action-step-item">
-          <div class="step-num-badge">2</div>
+          <div class="step-num-badge">02</div>
           <div>
-            <h4>Gather Evidence Checklist</h4>
-            <p>Compile receipts, lease copy, and communication records.</p>
+            <h4 style="font-size: 1.05rem; margin-bottom: 0.25rem;">Issue Formal Demand Notice</h4>
+            <p style="font-size: 0.925rem; color: var(--text-secondary);">Send a written notice giving 7 working days to process deposit refund.</p>
           </div>
         </div>
         <div class="action-step-item">
-          <div class="step-num-badge">3</div>
+          <div class="step-num-badge">03</div>
           <div>
-            <h4>Escalate to Rent Controller</h4>
-            <p>File a complaint with the local Rent Controller / District Authority.</p>
+            <h4 style="font-size: 1.05rem; margin-bottom: 0.25rem;">Escalate to Rent Controller / Consumer Forum</h4>
+            <p style="font-size: 0.925rem; color: var(--text-secondary);">File a formal petition with the local Rent Controller / District Authority.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Documents to Keep Checklist -->
-    <div class="card" style="margin-bottom: 1.5rem;">
-      <h3>Documents to Keep</h3>
-      <ul style="list-style: disc; margin-left: 1.5rem; margin-top: 0.5rem; color: var(--text-secondary);">
-        <li>Rent agreement copy</li>
-        <li>Security deposit payment receipt / bank transaction statement</li>
-        <li>Written move-out communication and handover receipts</li>
-      </ul>
+    <!-- 4. DOCUMENTS TO KEEP -->
+    <div class="card">
+      <div class="card-header">
+        <h3 style="font-size: 1.15rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--primary-navy);">DOCUMENTS TO KEEP</h3>
+      </div>
+      <label class="checklist-item">
+        <input type="checkbox" checked>
+        <span>Copy of signed Rental / Lease Agreement</span>
+      </label>
+      <label class="checklist-item">
+        <input type="checkbox" checked>
+        <span>Security deposit payment receipt / bank transaction statement</span>
+      </label>
+      <label class="checklist-item">
+        <input type="checkbox">
+        <span>Written move-out communication and key handover confirmation</span>
+      </label>
     </div>
 
-    <!-- Official Verified Sources -->
-    <div class="card" style="margin-bottom: 1.5rem;">
-      <h3>Verified Official Sources</h3>
-      <div class="source-card">
-        <div class="source-card-header">
-          <span class="source-title">Model Tenancy Act 2021</span>
-          <span class="badge badge-neutral">Ministry of Housing & Urban Affairs</span>
+    <!-- 5. OFFICIAL SOURCES (Compact Default Accordion) -->
+    <div class="card compact-sources-card">
+      <details style="cursor: pointer;">
+        <summary style="display: flex; justify-content: space-between; align-items: center; font-weight: 600; list-style: none;">
+          <div style="display: flex; align-items: center; gap: 0.6rem;">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--success-green)" stroke-width="2.5" style="width: 1.25rem; height: 1.25rem;">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Official sources checked (1 government source)</span>
+          </div>
+          <span class="btn btn-sm btn-outline" style="pointer-events: none;">View sources →</span>
+        </summary>
+        <div style="margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+          <div class="source-card">
+            <div class="source-card-header">
+              <span class="source-title">Model Tenancy Act 2021</span>
+              <span class="badge badge-neutral">Ministry of Housing & Urban Affairs</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-secondary);">
+              <strong>Section / Reference:</strong> Section 11 (Security Deposit Standards)
+            </p>
+            <div class="source-snippet">
+              "The security deposit to be paid by the tenant shall be refunded upon vacating the premises after necessary deductions."
+            </div>
+          </div>
         </div>
-        <p style="font-size: 0.85rem; color: var(--text-secondary);">
-          <strong>Section / Reference:</strong> Section 11 (Security Deposit Standards)
-        </p>
-        <div class="source-snippet">
-          "The security deposit to be paid by the tenant shall be refunded upon vacating the premises after necessary deductions."
-        </div>
-      </div>
+      </details>
     </div>
 
     <!-- Why This Result? Expandable Accordion -->
-    <div class="card" style="margin-bottom: 1.5rem;">
-      <details>
-        <summary style="font-weight: 700; cursor: pointer; color: var(--primary-navy);">Why this result? (Source & Logic Explanation)</summary>
-        <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-secondary);">
+    <div class="card" style="background-color: var(--bg-surface-elevated);">
+      <details style="cursor: pointer;">
+        <summary style="font-weight: 700; color: var(--primary-navy);">Why this result? (Source Rationale & Statutory Basis)</summary>
+        <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
           This guidance was generated by analyzing your input against indexed official documents from the Model Tenancy Act 2021 and State Rent Control provisions. All claims are grounded in non-conflicting public sources.
         </p>
       </details>
     </div>
 
-    <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+    <div style="display: flex; gap: 1rem; justify-content: flex-end; flex-wrap: wrap; margin-top: 2rem;">
       <a href="/" class="btn btn-outline">Back to Homepage</a>
-      <a href="/pages/rti.html" class="btn btn-primary">Build RTI Application →</a>
+      <a href="/pages/rti.html" class="btn btn-rti">Build RTI Application →</a>
     </div>
 
   </main>
@@ -154,5 +197,7 @@
     </div>
   </footer>
 
+  <script src="/js/navigation.js"></script>
 </body>
 </html>
+

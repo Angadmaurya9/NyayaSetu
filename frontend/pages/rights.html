@@ -19,38 +19,76 @@
   <header class="navbar">
     <div class="container navbar-container">
       <a href="/" class="brand-logo">
-        <div class="logo-icon">
+        <div class="logo-icon" style="background-color: var(--accent-rights);">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <path d="M4 19C4 19 8 13 12 13C16 13 20 19 20 19"></path>
-            <path d="M12 4V13"></path>
-            <path d="M6 9L18 9"></path>
+            <circle cx="12" cy="12" r="10"></circle>
+            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
           </svg>
         </div>
         <div>
           <span>NyayaSetu</span>
-          <span class="brand-subtext">Rights Navigator</span>
+          <span class="brand-subtext" style="color: var(--accent-rights);">Rights Navigator</span>
         </div>
       </a>
 
       <ul class="nav-links">
         <li><a href="/" class="nav-link">Home</a></li>
-        <li><a href="/pages/rights.html" class="nav-link active">Rights Navigator</a></li>
+        <li><a href="/pages/rights.html" class="nav-link active active-rights">Rights Navigator</a></li>
         <li><a href="/pages/rti.html" class="nav-link">RTI Builder</a></li>
         <li><a href="/pages/schemes.html" class="nav-link">Schemes</a></li>
         <li><a href="/pages/forms.html" class="nav-link">Form Filler</a></li>
       </ul>
 
       <div class="nav-actions">
-        <a href="/" class="btn btn-sm btn-outline">← Back to Main</a>
+        <a href="/" class="btn btn-sm btn-outline">← Back Home</a>
+        <button class="nav-toggle-btn" id="nav-toggle-btn" aria-label="Toggle menu">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
       </div>
     </div>
   </header>
 
   <!-- Main Content -->
-  <main id="app-main" class="container-narrow" style="padding-top: 2.5rem;">
+  <main id="app-main" class="container-narrow" style="padding-top: 2rem;">
     
+    <!-- Feature Overview Landing Header -->
+    <div class="feature-landing-header rights-theme">
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+        <span class="badge" style="background-color: var(--accent-rights-light); color: var(--accent-rights); border: 1px solid var(--accent-rights-border);">
+          RESOLVE AN ISSUE
+        </span>
+      </div>
+      <h2>Rights Navigator</h2>
+      <p style="margin-top: 0.35rem; font-size: 1.05rem;">
+        Understand your situation. Find the information that matters. Know what to do next.
+      </p>
+      
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-top: 1.5rem; background-color: var(--bg-warm); padding: 1rem; border-radius: var(--radius-md);">
+        <div>
+          <strong style="font-size: 0.8rem; color: var(--accent-rights);">01 DESCRIBE</strong>
+          <div style="font-size: 0.85rem; color: var(--text-secondary);">State your situation</div>
+        </div>
+        <div>
+          <strong style="font-size: 0.8rem; color: var(--accent-rights);">02 CLARIFY</strong>
+          <div style="font-size: 0.85rem; color: var(--text-secondary);">Jurisdiction & facts</div>
+        </div>
+        <div>
+          <strong style="font-size: 0.8rem; color: var(--accent-rights);">03 CHECK SOURCES</strong>
+          <div style="font-size: 0.85rem; color: var(--text-secondary);">Verify official rules</div>
+        </div>
+        <div>
+          <strong style="font-size: 0.8rem; color: var(--accent-rights);">04 ACTION PLAN</strong>
+          <div style="font-size: 0.85rem; color: var(--text-secondary);">Step-by-step guidance</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Stepper -->
-    <div class="stepper">
+    <div class="stepper stepper-rights">
       <div class="step-item active" id="step-indicator-1">
         <div class="step-number">1</div>
         <span class="step-label">Situation</span>
@@ -65,7 +103,7 @@
       </div>
       <div class="step-item" id="step-indicator-4">
         <div class="step-number">4</div>
-        <span class="step-label">Action Plan</span>
+        <span class="step-label">Case Workspace</span>
       </div>
     </div>
 
@@ -74,14 +112,14 @@
       <div class="card">
         <div class="card-header">
           <h2>1. Describe Your Situation</h2>
-          <p>Explain the civic or tenant dispute, consumer issue, or legal query you are facing.</p>
+          <p>Explain the tenant dispute, consumer issue, or civic failure you are facing.</p>
         </div>
 
         <form id="rights-form-step-1" onsubmit="event.preventDefault();">
           <div class="form-group">
             <label for="rights-query" class="form-label">What issue are you trying to resolve? <span class="required">*</span></label>
-            <textarea id="rights-query" class="form-control" placeholder="e.g. My landlord has not returned my security deposit of ₹30,000 even though 60 days have passed since I vacated..." required></textarea>
-            <div class="form-hint">Describe the facts simply. Avoid legal codes—we will extract relevant rules.</div>
+            <textarea id="rights-query" class="form-control" placeholder="e.g. My landlord in Prayagraj has not returned my ₹15,000 security deposit for two months..." required></textarea>
+            <div class="form-hint">Describe the facts simply. Avoid legal codes—we will extract relevant rules automatically.</div>
             <div class="form-error">Please describe your situation to proceed.</div>
           </div>
 
@@ -96,7 +134,7 @@
           </div>
 
           <div style="display: flex; justify-content: flex-end; margin-top: 1.5rem;">
-            <button type="button" class="btn btn-primary btn-lg" id="rights-next-btn-1">
+            <button type="button" class="btn btn-rights btn-lg" id="rights-next-btn-1">
               <span>Continue to Details →</span>
             </button>
           </div>
@@ -109,33 +147,33 @@
       <div class="card">
         <div class="card-header">
           <h2>2. Location & Relevant Facts</h2>
-          <p>State laws and municipal rules depend on your jurisdiction.</p>
+          <p>State laws and municipal rules depend on your location.</p>
         </div>
 
         <form id="rights-form-step-2" onsubmit="event.preventDefault();">
           <div class="form-group">
             <label for="rights-state" class="form-label">State / Union Territory <span class="required">*</span></label>
-            <input type="text" id="rights-state" class="form-control" placeholder="e.g. Delhi, Maharashtra, Karnataka" required>
+            <input type="text" id="rights-state" class="form-control" placeholder="e.g. Uttar Pradesh, Delhi, Karnataka" required>
             <div class="form-error">Please enter your state or location.</div>
           </div>
 
           <div class="form-group">
             <label for="rights-city" class="form-label">City / District</label>
-            <input type="text" id="rights-city" class="form-control" placeholder="e.g. Bengaluru, Mumbai, Jaipur">
+            <input type="text" id="rights-city" class="form-control" placeholder="e.g. Prayagraj, Bengaluru, Mumbai">
           </div>
 
           <div class="form-group">
-            <label for="rights-agreement" class="form-label">Do you have a written agreement or receipts?</label>
+            <label for="rights-agreement" class="form-label">Do you have written agreements or payment receipts?</label>
             <select id="rights-agreement" class="form-control">
-              <option value="yes">Yes, I have written documents/receipts</option>
-              <option value="partial">Partial (WhatsApp messages/bank transfers only)</option>
+              <option value="yes">Yes, I have written agreement / official receipts</option>
+              <option value="partial">Partial (WhatsApp messages / UPI bank statements)</option>
               <option value="no">No written documents</option>
             </select>
           </div>
 
           <div style="display: flex; justify-content: space-between; margin-top: 1.5rem;">
             <button type="button" class="btn btn-outline" onclick="Navigation.goToStep(1)">← Back</button>
-            <button type="button" class="btn btn-primary btn-lg" id="rights-analyze-btn">
+            <button type="button" class="btn btn-rights btn-lg" id="rights-analyze-btn">
               <span>Analyze & Verify Rights →</span>
             </button>
           </div>
@@ -143,10 +181,10 @@
       </div>
     </div>
 
-    <!-- Step 3 & 4: Results Container -->
+    <!-- Step 3 & 4: Results Container (Case Workspace) -->
     <div id="step-view-3" style="display: none;">
       <div id="rights-results-container">
-        <!-- Dynamically rendered by rights.js -->
+        <!-- Dynamically rendered Case Workspace by rights.js -->
       </div>
     </div>
 
@@ -165,3 +203,4 @@
   <script src="/js/rights.js"></script>
 </body>
 </html>
+

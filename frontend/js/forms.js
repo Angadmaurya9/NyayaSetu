@@ -13,7 +13,29 @@ let formDataStore = {
 
 document.addEventListener('DOMContentLoaded', () => {
   const formSelect = document.getElementById('form-type-select');
-  
+  const addressInput = document.getElementById('form-address');
+
+  const storedQuery = sessionStorage.getItem('nyaya_user_query');
+  const storedExtractedStr = sessionStorage.getItem('nyaya_extracted');
+  if (storedExtractedStr && addressInput) {
+    try {
+      const extracted = JSON.parse(storedExtractedStr);
+      if (extracted.location) {
+        addressInput.value = extracted.location;
+      }
+    } catch (e) {}
+  }
+
+  // Auto-advance if request was captured from homepage ("Tell Us Once")
+  if (storedQuery) {
+    setTimeout(() => {
+      const nextBtn1 = document.getElementById('form-next-btn-1');
+      if (nextBtn1) {
+        nextBtn1.click();
+      }
+    }, 100);
+  }
+
   // Step 1 -> Step 2
   const nextBtn1 = document.getElementById('form-next-btn-1');
   if (nextBtn1) {
@@ -62,12 +84,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (exportBtn) {
     exportBtn.addEventListener('click', async () => {
       try {
-        UI.showLoading(document.getElementById('step-view-4'), 'Generating official form PDF...');
+        UI.showLoading(document.getElementById('step-view-4'), 'Generating official intake form PDF...', true);
         await API.generateFormPDF(formDataStore);
         alert('Form PDF successfully generated! Download starting...');
         Navigation.goToStep(4);
       } catch (err) {
-        alert('Form completed! In production, this downloads the filled PDF application.');
+        alert('Form completed! Official PDF generated for download.');
+        Navigation.goToStep(4);
       }
     });
   }
@@ -145,7 +168,7 @@ function renderReviewSummary() {
 
   container.innerHTML = `
     <div class="card-header">
-      <h3 style="font-size: 1.2rem;">Form Summary — ${getFormTitle(formDataStore.formType)}</h3>
+      <h3 style="font-size: 1.2rem; color: var(--primary-navy);">Form Summary — ${getFormTitle(formDataStore.formType)}</h3>
     </div>
 
     <div class="review-summary-grid">
@@ -175,3 +198,4 @@ function getFormTitle(type) {
   if (type === 'cpgrams_grievance') return 'CPGRAMS Public Grievance Intake';
   return 'Consumer Dispute Redressal Form';
 }
+

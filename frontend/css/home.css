@@ -2,7 +2,7 @@
 
 /* Hero Section */
 .hero-section {
-  padding: 4.5rem 0 3.5rem 0;
+  padding: 4rem 0 3.5rem 0;
   text-align: center;
   position: relative;
 }
@@ -11,21 +11,21 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: var(--accent-terracotta-light);
-  color: var(--accent-terracotta);
-  padding: 0.35rem 1rem;
+  background-color: var(--accent-rights-light);
+  color: var(--accent-rights);
+  padding: 0.4rem 1.1rem;
   border-radius: var(--radius-full);
   font-size: 0.85rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  border: 1px solid rgba(217, 119, 69, 0.2);
+  border: 1px solid var(--accent-rights-border);
 }
 
 .hero-title {
   font-size: 3rem;
   color: var(--primary-navy);
   margin-bottom: 1.25rem;
-  max-width: 820px;
+  max-width: 860px;
   margin-left: auto;
   margin-right: auto;
   line-height: 1.15;
@@ -34,47 +34,122 @@
 .hero-subtitle {
   font-size: 1.15rem;
   color: var(--text-secondary);
-  max-width: 680px;
+  max-width: 700px;
   margin: 0 auto 2.5rem auto;
   line-height: 1.6;
 }
 
-/* Hero Action Input Box */
+/* Large Hero Problem Textarea & Voice Bar */
 .hero-input-box {
   background-color: var(--bg-surface);
-  border: 1px solid var(--border-color);
+  border: 2px solid var(--border-color);
   border-radius: var(--radius-xl);
-  padding: 0.6rem;
+  padding: 1rem 1.25rem;
   box-shadow: var(--shadow-lg);
-  max-width: 760px;
+  max-width: 820px;
   margin: 0 auto 1.5rem auto;
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0.75rem;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  text-align: left;
 }
 
 .hero-input-box:focus-within {
   border-color: var(--primary-navy);
-  box-shadow: 0 8px 30px rgba(23, 32, 51, 0.12);
+  box-shadow: 0 10px 32px rgba(23, 32, 51, 0.12);
 }
 
-.hero-input-box input {
-  flex: 1;
+.hero-textarea-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.hero-textarea {
+  width: 100%;
+  min-height: 110px;
+  max-height: 240px;
   border: none;
   background: transparent;
-  padding: 0.75rem 1rem;
+  padding: 0.25rem 0.5rem;
   font-size: 1.05rem;
   font-family: var(--font-sans);
   color: var(--text-primary);
+  line-height: 1.5;
+  resize: vertical;
 }
 
-.hero-input-box input:focus {
+.hero-textarea:focus {
   outline: none;
 }
 
-.hero-input-box input::placeholder {
+.hero-textarea::placeholder {
   color: var(--text-muted);
+}
+
+.hero-input-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-color);
+  padding-top: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.hero-input-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Microphone Voice Input Button */
+.mic-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: var(--bg-warm);
+  border: 1px solid var(--border-color);
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.mic-btn:hover {
+  background-color: #EFEFEA;
+  border-color: var(--border-color-hover);
+}
+
+.mic-btn.listening {
+  background-color: var(--danger-red-light);
+  color: var(--danger-red);
+  border-color: rgba(217, 56, 58, 0.4);
+  animation: pulseMic 1.2s infinite alternate;
+}
+
+@keyframes pulseMic {
+  from { box-shadow: 0 0 0 0 rgba(217, 56, 58, 0.4); }
+  to { box-shadow: 0 0 0 8px rgba(217, 56, 58, 0); }
+}
+
+.clear-text-btn {
+  background: none;
+  border: none;
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.clear-text-btn:hover {
+  color: var(--danger-red);
+  background-color: var(--danger-red-light);
 }
 
 /* Quick Examples Pills */
@@ -84,7 +159,7 @@
   justify-content: center;
   gap: 0.6rem;
   flex-wrap: wrap;
-  max-width: 800px;
+  max-width: 840px;
   margin: 0 auto;
 }
 
@@ -97,7 +172,7 @@
 .example-pill {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
-  padding: 0.35rem 0.85rem;
+  padding: 0.4rem 0.9rem;
   border-radius: var(--radius-full);
   font-size: 0.825rem;
   color: var(--text-secondary);
@@ -109,9 +184,52 @@
   background-color: var(--primary-navy);
   color: #FFFFFF;
   border-color: var(--primary-navy);
+  transform: translateY(-1px);
 }
 
-/* Services Grid Section */
+/* Extraction & Confirmation Card */
+.confirmation-modal-card {
+  background-color: var(--bg-surface);
+  border: 2px solid var(--primary-navy);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-lg);
+  max-width: 820px;
+  margin: 2rem auto 0 auto;
+  text-align: left;
+  animation: pageEnter 300ms ease forwards;
+}
+
+.confirmation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  background-color: var(--bg-warm);
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  margin: 1rem 0 1.5rem 0;
+}
+
+.confirmation-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.confirmation-item-label {
+  font-size: 0.775rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.2rem;
+}
+
+.confirmation-item-value {
+  font-size: 0.975rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+}
+
+/* Services Grid Section & 4 Visual Identities */
 .services-section {
   padding: 4rem 0;
 }
@@ -135,41 +253,61 @@
 .service-card {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 1.5rem;
-  transition: all var(--transition-normal);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
   text-decoration: none;
   color: inherit;
   box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
 }
 
 .service-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--primary-navy);
+  box-shadow: var(--shadow-hover);
 }
 
 .service-icon-box {
   width: 3.25rem;
   height: 3.25rem;
-  background-color: var(--bg-warm);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--primary-navy);
   font-size: 1.5rem;
+  margin-bottom: 1.25rem;
   transition: all var(--transition-fast);
 }
 
-.service-card:hover .service-icon-box {
-  background-color: var(--accent-terracotta);
-  color: #FFFFFF;
-}
+/* Feature Visual Identities */
+/* 1. Rights Navigator */
+#card-rights { border-top: 4px solid var(--accent-rights); }
+#card-rights .service-icon-box { background-color: var(--accent-rights-light); color: var(--accent-rights); }
+#card-rights:hover { border-color: var(--accent-rights); }
+#card-rights .service-link-text { color: var(--accent-rights); }
+
+/* 2. RTI Builder */
+#card-rti { border-top: 4px solid var(--accent-rti); }
+#card-rti .service-icon-box { background-color: var(--accent-rti-light); color: var(--accent-rti); }
+#card-rti:hover { border-color: var(--accent-rti); }
+#card-rti .service-link-text { color: var(--accent-rti); }
+
+/* 3. Scheme Checker */
+#card-schemes { border-top: 4px solid var(--accent-scheme); }
+#card-schemes .service-icon-box { background-color: var(--accent-scheme-light); color: var(--accent-scheme); }
+#card-schemes:hover { border-color: var(--accent-scheme); }
+#card-schemes .service-link-text { color: var(--accent-scheme); }
+
+/* 4. Form Filler */
+#card-forms { border-top: 4px solid var(--accent-form); }
+#card-forms .service-icon-box { background-color: var(--accent-form-light); color: var(--accent-form); }
+#card-forms:hover { border-color: var(--accent-form); }
+#card-forms .service-link-text { color: var(--accent-form); }
 
 .service-card h3 {
   font-size: 1.35rem;
@@ -185,7 +323,6 @@
 .service-link-text {
   font-weight: 700;
   font-size: 0.9rem;
-  color: var(--accent-terracotta);
   display: flex;
   align-items: center;
   gap: 0.35rem;
@@ -215,7 +352,7 @@
   font-family: var(--font-heading);
   font-size: 2.25rem;
   font-weight: 800;
-  color: var(--accent-terracotta);
+  color: var(--primary-navy);
   opacity: 0.85;
   margin-bottom: 0.5rem;
 }
@@ -252,3 +389,4 @@
   color: #94A3B8;
   font-size: 0.95rem;
 }
+

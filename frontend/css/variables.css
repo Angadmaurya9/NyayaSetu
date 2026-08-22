@@ -1,10 +1,12 @@
-/* NyayaSetu Design System Tokens */
+/* NyayaSetu Unified Design System Tokens */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Colors */
+  /* Core Brand Colors */
   --primary-navy: #172033;
   --primary-navy-hover: #23304b;
+  --primary-navy-light: #2c3c5e;
+  
   --bg-warm: #F7F7F4;
   --bg-surface: #FFFFFF;
   --bg-surface-elevated: #F9FAFB;
@@ -14,12 +16,40 @@
   --text-muted: #98A2B3;
   --text-on-dark: #FFFFFF;
 
-  --accent-terracotta: #D97745;
-  --accent-terracotta-hover: #C26536;
-  --accent-terracotta-light: #FDF4EF;
+  /* ----------------------------------------------------
+     MODULE 1: RIGHTS NAVIGATOR (Muted Terracotta / Coral)
+     ---------------------------------------------------- */
+  --accent-rights: #D97745;
+  --accent-rights-hover: #C26536;
+  --accent-rights-light: #FDF4EF;
+  --accent-rights-border: #F5C9B3;
 
-  --success-green: #4F8065;
-  --success-green-hover: #3E6650;
+  /* ----------------------------------------------------
+     MODULE 2: RTI BUILDER (Deep Blue)
+     ---------------------------------------------------- */
+  --accent-rti: #2563EB;
+  --accent-rti-hover: #1D4ED8;
+  --accent-rti-light: #EFF6FF;
+  --accent-rti-border: #BFDBFE;
+
+  /* ----------------------------------------------------
+     MODULE 3: SCHEME CHECKER (Muted Green)
+     ---------------------------------------------------- */
+  --accent-scheme: #2D6A4F;
+  --accent-scheme-hover: #1B4332;
+  --accent-scheme-light: #F0F7F3;
+  --accent-scheme-border: #B7E4C7;
+
+  /* ----------------------------------------------------
+     MODULE 4: GUIDED FORM FILLER (Muted Indigo / Purple)
+     ---------------------------------------------------- */
+  --accent-form: #5B5FA8;
+  --accent-form-hover: #4A4D8B;
+  --accent-form-light: #F4F4FA;
+  --accent-form-border: #D1D3EA;
+
+  /* Feedback Colors */
+  --success-green: #2D6A4F;
   --success-green-light: #F0F7F3;
 
   --warning-amber: #D97706;
@@ -36,6 +66,7 @@
   --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.06), 0 1px 2px rgba(16, 24, 40, 0.04);
   --shadow-md: 0 4px 14px rgba(16, 24, 40, 0.08);
   --shadow-lg: 0 12px 28px -4px rgba(16, 24, 40, 0.12);
+  --shadow-hover: 0 10px 24px -2px rgba(23, 32, 51, 0.12);
 
   /* Radius */
   --radius-sm: 6px;
@@ -49,10 +80,12 @@
   --font-heading: 'Manrope', 'Inter', 'Noto Sans Devanagari', sans-serif;
 
   /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-normal: 250ms ease;
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Layout */
   --max-width-container: 1200px;
-  --max-width-narrow: 840px;
+  --max-width-narrow: 860px;
 }
+

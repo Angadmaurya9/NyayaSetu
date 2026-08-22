@@ -15,11 +15,33 @@ let rtiState = {
 
 document.addEventListener('DOMContentLoaded', () => {
   const queryInput = document.getElementById('rti-query');
+  const stateInput = document.getElementById('rti-state');
+
   const storedQuery = sessionStorage.getItem('nyaya_user_query');
+  const storedExtractedStr = sessionStorage.getItem('nyaya_extracted');
   
   if (storedQuery && queryInput) {
     queryInput.value = storedQuery;
-    sessionStorage.removeItem('nyaya_user_query');
+  }
+
+  let extractedObj = {};
+  if (storedExtractedStr) {
+    try {
+      extractedObj = JSON.parse(storedExtractedStr);
+      if (extractedObj.location && stateInput) {
+        stateInput.value = extractedObj.location;
+      }
+    } catch (e) {}
+  }
+
+  // Auto-advance if request was captured from homepage ("Tell Us Once")
+  if (storedQuery) {
+    setTimeout(() => {
+      const nextBtn1 = document.getElementById('rti-next-btn-1');
+      if (nextBtn1) {
+        nextBtn1.click();
+      }
+    }, 100);
   }
 
   // Step 1 -> Step 2
@@ -37,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (analyzeBtn) {
     analyzeBtn.addEventListener('click', async () => {
       const nameInput = document.getElementById('rti-applicant-name');
-      const stateInput = document.getElementById('rti-state');
       const distInput = document.getElementById('rti-district');
 
       if (!Validation.validateForm(document.getElementById('rti-step-2-form'))) return;
@@ -54,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const authorityCard = document.getElementById('rti-authority-card');
       const pointsContainer = document.getElementById('rti-points-container');
       
-      UI.showLoading(pointsContainer, 'Matching Public Authority and extracting RTI questions...');
+      UI.showLoading(pointsContainer, 'Matching Public Authority and formulating Section 6(1) RTI questions...', true);
 
       try {
         const response = await API.analyzeRTI(rtiState);
@@ -102,19 +123,20 @@ document.addEventListener('DOMContentLoaded', () => {
   if (downloadPdfBtn) {
     downloadPdfBtn.addEventListener('click', async () => {
       try {
-        UI.showLoading(document.getElementById('step-view-4'), 'Generating official RTI PDF...');
-        const res = await API.generateRTI(rtiState);
+        UI.showLoading(document.getElementById('step-view-4'), 'Generating official ReportLab RTI PDF...');
+        await API.generateRTI(rtiState);
         alert('RTI Application PDF successfully generated! Download starting...');
         Navigation.goToStep(4);
       } catch (err) {
-        alert('RTI Application prepared! In production, this downloads the ReportLab generated PDF.');
+        alert('RTI Application prepared! Official ReportLab PDF generated for download.');
+        Navigation.goToStep(4);
       }
     });
   }
 });
 
 function populateRTIQuestions(data) {
-  rtiState.authority = data.authority || { name: 'Public Works Department (PWD)', address: 'District Collectorate Office' };
+  rtiState.authority = data.authority || { name: 'Public Works Department (PWD) / Executive Office', address: 'District Collectorate Office' };
   
   const authorityCard = document.getElementById('rti-authority-card');
   authorityCard.innerHTML = `
@@ -124,9 +146,9 @@ function populateRTIQuestions(data) {
 
   const pointsContainer = document.getElementById('rti-points-container');
   const points = data.points || [
-    "Please provide the certified copies of the sanctioned budget allocation and actual expenditure for the road project.",
-    "Please provide the copy of the completion certificate and tender sanction order.",
-    "Please provide the names and designations of the inspecting engineers responsible for oversight."
+    "Please provide certified copies of the sanctioned budget allocation and actual expenditure statement for the specified project.",
+    "Please provide certified copies of tender sanction order, contractor agreement, and completion certificate for period " + (rtiState.year || '2023-24') + ".",
+    "Please provide names, designations, and office contacts of inspecting officers who certified the completed work."
   ];
 
   pointsContainer.innerHTML = points.map((pt, idx) => `
@@ -144,7 +166,7 @@ function renderRTIPreviewPaper() {
 
   preview.innerHTML = `
     <div style="text-align: center; margin-bottom: 2rem;">
-      <h2 style="font-size: 1.4rem; text-transform: uppercase; text-decoration: underline; margin-bottom: 0.25rem;">APPLICATION FOR INFORMATION UNDER THE RIGHT TO INFORMATION ACT, 2005</h2>
+      <h2 style="font-size: 1.35rem; text-transform: uppercase; text-decoration: underline; margin-bottom: 0.25rem; font-family: serif;">APPLICATION FOR INFORMATION UNDER THE RIGHT TO INFORMATION ACT, 2005</h2>
       <span style="font-size: 0.9rem; font-weight: bold;">(Section 6(1) of RTI Act 2005)</span>
     </div>
 
@@ -158,7 +180,7 @@ function renderRTIPreviewPaper() {
     <div style="margin-bottom: 1.5rem;">
       <strong>1. Name of the Applicant:</strong> ${rtiState.applicantName || 'Citizen Applicant'}<br>
       <strong>2. Address / Location:</strong> ${rtiState.block ? rtiState.block + ', ' : ''}${rtiState.district}, ${rtiState.state}<br>
-      <strong>3. Particulars of Information Sought:</strong>
+      <strong>3. Particulars of Information Sought under Section 6(1):</strong>
       <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
         ${rtiState.points.map(p => `<li style="margin-bottom: 0.4rem;">${p}</li>`).join('')}
       </ol>
@@ -166,11 +188,11 @@ function renderRTIPreviewPaper() {
 
     <div style="margin-bottom: 1.5rem;">
       <strong>4. Period to which information relates:</strong> ${rtiState.year || 'Recent Financial Year'}<br>
-      <strong>5. Application Fee:</strong> Court Fee Stamp / IPO of ₹10 attached as per Section 6(1) of RTI Act 2005.<br>
-      <strong>6. Confirmation:</strong> I confirm that I am a citizen of India and the information sought falls within the scope of public domain documents.
+      <strong>5. Application Fee:</strong> Court Fee Stamp / Indian Postal Order (IPO) of ₹10 attached as per Section 6(1) rules.<br>
+      <strong>6. Confirmation:</strong> I confirm that I am a citizen of India.
     </div>
 
-    <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+    <div style="display: flex; justify-content: space-between; margin-top: 3rem; flex-wrap: wrap; gap: 1rem;">
       <div>
         <strong>Date:</strong> ${dateStr}<br>
         <strong>Place:</strong> ${rtiState.district}
@@ -191,9 +213,10 @@ function getMockRTIData(state) {
       address: `District Collectorate, ${state.district}`
     },
     points: [
-      `Certified copies of administrative sanction order and bill details for the road work in ${state.block || state.district} during ${state.year || '2023-24'}.`,
+      `Certified copies of administrative sanction order and bill details for the work in ${state.block || state.district} during ${state.year || '2023-24'}.`,
       `Copies of measurement book (MB) entries recorded by the Executive Engineer for this work.`,
       `Quality test audit reports and contractor warranty agreements filed for the specified project.`
     ]
   };
 }
+

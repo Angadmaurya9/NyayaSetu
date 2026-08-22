@@ -21,7 +21,7 @@
     <div class="container navbar-container">
       <a href="/" class="brand-logo" id="nav-brand">
         <div class="logo-icon">
-          <!-- Subtle Bridge / Path Icon -->
+          <!-- Bridge / Path Icon -->
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 19C4 19 8 13 12 13C16 13 20 19 20 19"></path>
             <path d="M12 4V13"></path>
@@ -34,7 +34,7 @@
         </div>
       </a>
 
-      <ul class="nav-links">
+      <ul class="nav-links" id="main-nav-links">
         <li><a href="#services" class="nav-link">Explore Services</a></li>
         <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
         <li><a href="#trust" class="nav-link">Source Trust</a></li>
@@ -49,6 +49,15 @@
           </svg>
           <span id="current-lang-text">EN / हिंदी</span>
         </button>
+
+        <!-- Mobile Navigation Toggle Hamburger Button -->
+        <button class="nav-toggle-btn" id="nav-toggle-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
       </div>
     </div>
   </header>
@@ -60,10 +69,10 @@
     <section class="hero-section">
       <div class="container">
         <div class="hero-tag">
-          <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
           </svg>
-          <span>Official Source-Backed Guidance</span>
+          <span>Official Source-Backed Civic Assistant</span>
         </div>
 
         <h1 class="hero-title">
@@ -71,28 +80,51 @@
         </h1>
 
         <p class="hero-subtitle">
-          Tell us what you're trying to solve. NyayaSetu helps you understand relevant information, verify official sources, and find a clear path forward.
+          Describe what you're trying to solve in your own words. NyayaSetu extracts key facts, checks official sources, and guides you to the right service.
         </p>
 
-        <!-- Search / Action Input -->
+        <!-- Search / Natural Language Problem Textarea Box -->
         <div class="hero-input-box">
-          <input type="text" id="hero-query-input" placeholder="e.g. My landlord has not returned my security deposit..." aria-label="Describe what you are trying to solve">
-          <button class="btn btn-primary btn-lg" id="hero-submit-btn">
-            <span>Find My Path</span>
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </button>
+          <div class="hero-textarea-wrapper">
+            <textarea id="hero-query-input" class="hero-textarea" placeholder="Describe your situation or problem in detail... e.g. My landlord in Prayagraj hasn't returned my ₹15,000 security deposit for two months even though I vacated after serving notice." aria-label="What are you trying to solve?"></textarea>
+          </div>
+
+          <div class="hero-input-actions">
+            <div class="hero-input-tools">
+              <!-- Voice Microphone Button -->
+              <button type="button" class="mic-btn" id="mic-btn" aria-label="Use voice input" aria-pressed="false">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                  <line x1="12" y1="19" x2="12" y2="23"></line>
+                  <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
+                <span class="mic-label">Speak</span>
+              </button>
+
+              <button type="button" class="clear-text-btn" id="clear-text-btn">✕ Clear</button>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-lg" id="hero-submit-btn">
+              <span>Find My Path</span>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
         </div>
+
+        <!-- Extraction Confirmation Container (Populated dynamically when user submits) -->
+        <div id="confirmation-container"></div>
 
         <!-- Sample Query Pills -->
         <div class="hero-examples">
           <span class="hero-examples-label">Try asking:</span>
-          <button class="example-pill" data-query="My landlord has not returned my security deposit.">Landlord holding deposit</button>
-          <button class="example-pill" data-query="I want to know how much money was spent on a road project in my village.">Road project RTI details</button>
-          <button class="example-pill" data-query="I am a student. Can I get a post-matric scholarship?">Scholarship eligibility</button>
-          <button class="example-pill" data-query="I need help filling an Income Certificate application.">Income Certificate Form</button>
+          <button type="button" class="example-pill" data-query="My landlord in Prayagraj has not returned my ₹15,000 security deposit for two months. I asked him twice.">Tenant deposit refund</button>
+          <button type="button" class="example-pill" data-query="I want to know how much money was sanctioned and spent on repairing the main road in Rampur village during 2023-2024.">Road project expenditure RTI</button>
+          <button type="button" class="example-pill" data-query="I am a college student from Uttar Pradesh with family income under ₹2.5 Lakhs. Can I apply for Post-Matric Scholarship?">Scholarship eligibility check</button>
+          <button type="button" class="example-pill" data-query="I need help filling an application form for Income Certificate at Tahsildar office.">Income Certificate Form</button>
         </div>
       </div>
     </section>
@@ -101,76 +133,77 @@
     <section class="services-section" id="services">
       <div class="container">
         <div class="section-header">
-          <h2>What can we help you with?</h2>
-          <p>Select a guided workflow designed to translate your civic issue into concrete action.</p>
+          <h2>Four Purpose-Built Workflows</h2>
+          <p>Each module has its own visual identity, step-by-step intake, and official document backing.</p>
         </div>
 
         <div class="services-grid">
           
-          <!-- Service Card 1: Rights Navigator -->
+          <!-- Service Card 1: Rights Navigator (Terracotta Accent) -->
           <a href="/pages/rights.html" class="service-card" id="card-rights">
             <div>
               <div class="service-icon-box">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
                 </svg>
               </div>
-              <h3>1. Resolve an Issue</h3>
-              <p>Understand your civic & legal rights in plain simple language, check rules, and get a clear step-by-step action plan with document checklists.</p>
+              <h3>Rights Navigator</h3>
+              <p>Understand tenant, consumer, or civic rights in plain language. Get clear step-by-step action plans grounded in Model Acts and state rules.</p>
             </div>
             <span class="service-link-text">
-              Start Rights Navigator →
+              Resolve An Issue →
             </span>
           </a>
 
-          <!-- Service Card 2: RTI Application Builder -->
+          <!-- Service Card 2: RTI Application Builder (Deep Blue Accent) -->
           <a href="/pages/rti.html" class="service-card" id="card-rti">
             <div>
               <div class="service-icon-box">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                   <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="16" y1="13" x2="8" y2="13"></line>
-                  <line x1="16" y1="17" x2="8" y2="17"></line>
-                  <polyline points="10 9 9 9 8 9"></polyline>
+                  <circle cx="11" cy="14" r="2"></circle>
+                  <line x1="12.5" y1="15.5" x2="15" y2="18"></line>
                 </svg>
               </div>
-              <h3>2. Request Information</h3>
-              <p>Turn your information request into a structured Right to Information (RTI) application with automated department matching and downloadable PDF.</p>
+              <h3>RTI Application Builder</h3>
+              <p>Turn your information request into a structured Right to Information (RTI) application with automated PIO authority matching and downloadable PDF.</p>
             </div>
             <span class="service-link-text">
               Build RTI Application →
             </span>
           </a>
 
-          <!-- Service Card 3: Scheme Eligibility Checker -->
+          <!-- Service Card 3: Scheme Eligibility Checker (Muted Green Accent) -->
           <a href="/pages/schemes.html" class="service-card" id="card-schemes">
             <div>
               <div class="service-icon-box">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  <polyline points="9 12 11 14 15 10"></polyline>
                 </svg>
               </div>
-              <h3>3. Check a Scheme</h3>
-              <p>Verify whether you qualify for government welfare schemes using deterministic eligibility rules and official criteria document sources.</p>
+              <h3>Scheme Eligibility Checker</h3>
+              <p>Verify whether you qualify for government welfare schemes using deterministic income/category rules and official guideline citations.</p>
             </div>
             <span class="service-link-text">
               Check Scheme Qualification →
             </span>
           </a>
 
-          <!-- Service Card 4: Guided Form Filler -->
+          <!-- Service Card 4: Guided Form Filler (Muted Indigo Accent) -->
           <a href="/pages/forms.html" class="service-card" id="card-forms">
             <div>
               <div class="service-icon-box">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                  <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                  <path d="M9 12l2 2 4-4"></path>
                 </svg>
               </div>
-              <h3>4. Complete a Form</h3>
-              <p>Fill selected government intake forms step-by-step with real-time field validation, clean preview, and print-ready PDF export.</p>
+              <h3>Guided Form Filler</h3>
+              <p>Complete selected government intake forms step-by-step with real-time field validation, clean preview, and print-ready PDF export.</p>
             </div>
             <span class="service-link-text">
               Fill Government Form →
@@ -193,26 +226,26 @@
           
           <div class="step-card">
             <div class="step-badge">01</div>
-            <h4>Tell Us</h4>
-            <p>Describe your issue or need in your own words. We identify missing details and ask only what is needed.</p>
+            <h4>Describe</h4>
+            <p>Tell us your situation or question in free-form language or voice input. We extract structured details automatically.</p>
           </div>
 
           <div class="step-card">
             <div class="step-badge">02</div>
-            <h4>Understand</h4>
-            <p>We break down complex bureaucratic rules into plain, simple explanations you can easily act on.</p>
+            <h4>Confirm</h4>
+            <p>Review the extracted details (location, amount, issue type) and confirm the recommended workflow.</p>
           </div>
 
           <div class="step-card">
             <div class="step-badge">03</div>
             <h4>Verify</h4>
-            <p>Every guidance point is verified against official government guidelines, acts, and official gazette sources.</p>
+            <p>Every guidance point is verified against official government guidelines, Gazette notifications, and statutory rules.</p>
           </div>
 
           <div class="step-card">
             <div class="step-badge">04</div>
             <h4>Act</h4>
-            <p>Get a clear action checklist, official contacts, and generated PDF forms ready for filing.</p>
+            <p>Get a clear Case Workspace action plan, document checklist, and official generated PDF ready to file.</p>
           </div>
 
         </div>
@@ -289,7 +322,9 @@
   <script src="/js/api.js"></script>
   <script src="/js/ui.js"></script>
   <script src="/js/navigation.js"></script>
+  <script src="/js/voice.js"></script>
   <script src="/js/validation.js"></script>
   <script src="/js/app.js"></script>
 </body>
 </html>
+
