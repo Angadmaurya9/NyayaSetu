@@ -38,6 +38,23 @@ app.register_blueprint(form_bp, url_prefix='/api/form')
 def index():
   return send_from_directory(FRONTEND_DIR, 'index.html')
 
+# Direct Page Route Aliases
+@app.route('/rights')
+def route_rights():
+  return send_from_directory(os.path.join(FRONTEND_DIR, 'pages'), 'rights.html')
+
+@app.route('/rti')
+def route_rti():
+  return send_from_directory(os.path.join(FRONTEND_DIR, 'pages'), 'rti.html')
+
+@app.route('/schemes')
+def route_schemes():
+  return send_from_directory(os.path.join(FRONTEND_DIR, 'pages'), 'schemes.html')
+
+@app.route('/forms')
+def route_forms():
+  return send_from_directory(os.path.join(FRONTEND_DIR, 'pages'), 'forms.html')
+
 # Serve Feature Pages
 @app.route('/pages/<path:filename>')
 def serve_pages(filename):
@@ -54,7 +71,10 @@ def serve_js(filename):
 
 @app.route('/assets/<path:filename>')
 def serve_assets(filename):
-  return send_from_directory(os.path.join(FRONTEND_DIR, 'assets'), filename)
+  assets_dir = os.path.join(FRONTEND_DIR, 'assets')
+  if not os.path.exists(assets_dir):
+    os.makedirs(assets_dir, exist_ok=True)
+  return send_from_directory(assets_dir, filename)
 
 # Orchestrator API endpoint
 @app.route('/api/orchestrate', methods=['POST'])

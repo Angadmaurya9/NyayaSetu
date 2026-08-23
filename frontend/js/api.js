@@ -28,7 +28,7 @@ const API = {
   },
 
   async generateRTI(payload) {
-    return this._post(`${API_BASE}/rti/generate`, payload);
+    return this.downloadPDF(`${API_BASE}/rti/generate`, payload, 'RTI_Application.pdf');
   },
 
   /**
@@ -46,7 +46,38 @@ const API = {
   },
 
   async generateFormPDF(payload) {
-    return this._post(`${API_BASE}/form/generate`, payload);
+    return this.downloadPDF(`${API_BASE}/form/generate`, payload, 'Official_Intake_Form.pdf');
+  },
+
+  /**
+   * Helper PDF download method
+   */
+  async downloadPDF(url, payload, filename = 'Document.pdf') {
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) {
+        throw new Error(`PDF generation server error: ${response.statusText}`);
+      }
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = downloadUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => window.URL.revokeObjectURL(downloadUrl), 1000);
+      return true;
+    } catch (err) {
+      console.error(`API Error [PDF Download ${url}]:`, err);
+      throw err;
+    }
   },
 
   /**

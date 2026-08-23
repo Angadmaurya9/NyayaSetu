@@ -1,5 +1,6 @@
 import os
 import json
+import re
 
 class GeminiService:
   @property
@@ -30,7 +31,11 @@ class GeminiService:
       if res.status_code == 200:
         data = res.json()
         raw_text = data['candidates'][0]['content']['parts'][0]['text']
-        return json.loads(raw_text)
+        cleaned_text = raw_text.strip()
+        if cleaned_text.startswith("```"):
+          cleaned_text = re.sub(r'^```(?:json)?\s*', '', cleaned_text)
+          cleaned_text = re.sub(r'\s*```$', '', cleaned_text)
+        return json.loads(cleaned_text)
       else:
         print(f"Gemini API HTTP Error {res.status_code}: {res.text}")
         return {}

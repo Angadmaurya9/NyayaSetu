@@ -27,6 +27,66 @@ class TestNyayaSetuBackend(unittest.TestCase):
     data = res.get_json()
     self.assertEqual(data.get('intent'), 'rti')
 
+  def test_rights_analyze_endpoint(self):
+    res = self.client.post('/api/rights/analyze', json={
+      'query': 'Landlord not returning security deposit',
+      'state': 'Uttar Pradesh',
+      'category': 'tenant'
+    })
+    self.assertEqual(res.status_code, 200)
+    data = res.get_json()
+    self.assertIn('issue_title', data)
+    self.assertIn('action_plan', data)
+
+  def test_rti_analyze_endpoint(self):
+    res = self.client.post('/api/rti/analyze', json={
+      'query': 'Road construction expense',
+      'state': 'Uttar Pradesh',
+      'district': 'Prayagraj'
+    })
+    self.assertEqual(res.status_code, 200)
+    data = res.get_json()
+    self.assertIn('authority', data)
+    self.assertIn('points', data)
+
+  def test_rti_generate_pdf_endpoint(self):
+    res = self.client.post('/api/rti/generate', json={
+      'applicantName': 'Test Citizen',
+      'district': 'Prayagraj',
+      'state': 'Uttar Pradesh',
+      'points': ['Copy of sanctioned budget']
+    })
+    self.assertEqual(res.status_code, 200)
+    self.assertEqual(res.mimetype, 'application/pdf')
+    self.assertTrue(res.data.startswith(b'%PDF'))
+
+  def test_scheme_check_endpoint(self):
+    res = self.client.post('/api/scheme/check', json={
+      'income': 150000,
+      'category': 'OBC',
+      'state': 'Uttar Pradesh',
+      'scheme_id': 'post_matric_scholarship'
+    })
+    self.assertEqual(res.status_code, 200)
+    data = res.get_json()
+    self.assertEqual(data.get('status'), 'eligible')
+
+  def test_form_generate_pdf_endpoint(self):
+    res = self.client.post('/api/form/generate', json={
+      'fullName': 'Test Applicant',
+      'mobile': '9876543210',
+      'address': 'Test Address',
+      'specifics': {'purpose': 'Scholarship'}
+    })
+    self.assertEqual(res.status_code, 200)
+    self.assertEqual(res.mimetype, 'application/pdf')
+    self.assertTrue(res.data.startswith(b'%PDF'))
+
+  def test_route_aliases(self):
+    for route in ['/', '/rights', '/rti', '/schemes', '/forms']:
+      res = self.client.get(route)
+      self.assertEqual(res.status_code, 200, f"Route {route} failed")
+
   def test_scheme_eligibility_rule(self):
     # Eligible case
     data_eligible = scheme_agent.evaluate({"income": 150000, "category": "OBC", "state": "UP"})
@@ -52,3 +112,4 @@ class TestNyayaSetuBackend(unittest.TestCase):
 
 if __name__ == '__main__':
   unittest.main()
+

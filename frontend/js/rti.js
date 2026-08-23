@@ -122,14 +122,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const downloadPdfBtn = document.getElementById('rti-download-pdf-btn');
   if (downloadPdfBtn) {
     downloadPdfBtn.addEventListener('click', async () => {
+      const originalText = downloadPdfBtn.innerHTML;
       try {
-        UI.showLoading(document.getElementById('step-view-4'), 'Generating official ReportLab RTI PDF...');
+        downloadPdfBtn.disabled = true;
+        downloadPdfBtn.innerHTML = '<span>Generating PDF...</span>';
         await API.generateRTI(rtiState);
-        alert('RTI Application PDF successfully generated! Download starting...');
-        Navigation.goToStep(4);
       } catch (err) {
-        alert('RTI Application prepared! Official ReportLab PDF generated for download.');
-        Navigation.goToStep(4);
+        alert('Could not generate RTI PDF file. Please try again.');
+      } finally {
+        downloadPdfBtn.disabled = false;
+        downloadPdfBtn.innerHTML = originalText;
       }
     });
   }

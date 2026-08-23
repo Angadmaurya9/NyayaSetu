@@ -83,14 +83,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const exportBtn = document.getElementById('form-export-pdf-btn');
   if (exportBtn) {
     exportBtn.addEventListener('click', async () => {
+      const originalText = exportBtn.innerHTML;
       try {
-        UI.showLoading(document.getElementById('step-view-4'), 'Generating official intake form PDF...', true);
+        exportBtn.disabled = true;
+        exportBtn.innerHTML = '<span>Generating Form PDF...</span>';
         await API.generateFormPDF(formDataStore);
-        alert('Form PDF successfully generated! Download starting...');
-        Navigation.goToStep(4);
       } catch (err) {
-        alert('Form completed! Official PDF generated for download.');
-        Navigation.goToStep(4);
+        alert('Could not generate Form PDF file. Please try again.');
+      } finally {
+        exportBtn.disabled = false;
+        exportBtn.innerHTML = originalText;
       }
     });
   }
