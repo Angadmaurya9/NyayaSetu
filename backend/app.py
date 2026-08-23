@@ -36,38 +36,62 @@ app.register_blueprint(form_bp, url_prefix='/api/form')
 # Serve Homepage
 @app.route('/')
 def index():
-  return send_from_directory(FRONTEND_DIR, 'index.html')
+  for path in [FRONTEND_DIR, BASE_DIR]:
+    if path and os.path.exists(os.path.join(path, 'index.html')):
+      return send_from_directory(path, 'index.html')
+  return "NyayaSetu Civic Action Assistant Online", 200
 
 # Direct Page Route Aliases
 @app.route('/rights')
 def route_rights():
-  return send_from_directory(os.path.join(FRONTEND_DIR, 'pages'), 'rights.html')
+  for path in [os.path.join(FRONTEND_DIR, 'pages'), os.path.join(BASE_DIR, 'pages'), FRONTEND_DIR, BASE_DIR]:
+    if path and os.path.exists(os.path.join(path, 'rights.html')):
+      return send_from_directory(path, 'rights.html')
+  return jsonify({"error": "Rights page not found"}), 404
 
 @app.route('/rti')
 def route_rti():
-  return send_from_directory(os.path.join(FRONTEND_DIR, 'pages'), 'rti.html')
+  for path in [os.path.join(FRONTEND_DIR, 'pages'), os.path.join(BASE_DIR, 'pages'), FRONTEND_DIR, BASE_DIR]:
+    if path and os.path.exists(os.path.join(path, 'rti.html')):
+      return send_from_directory(path, 'rti.html')
+  return jsonify({"error": "RTI page not found"}), 404
 
 @app.route('/schemes')
 def route_schemes():
-  return send_from_directory(os.path.join(FRONTEND_DIR, 'pages'), 'schemes.html')
+  for path in [os.path.join(FRONTEND_DIR, 'pages'), os.path.join(BASE_DIR, 'pages'), FRONTEND_DIR, BASE_DIR]:
+    if path and os.path.exists(os.path.join(path, 'schemes.html')):
+      return send_from_directory(path, 'schemes.html')
+  return jsonify({"error": "Schemes page not found"}), 404
 
 @app.route('/forms')
 def route_forms():
-  return send_from_directory(os.path.join(FRONTEND_DIR, 'pages'), 'forms.html')
+  for path in [os.path.join(FRONTEND_DIR, 'pages'), os.path.join(BASE_DIR, 'pages'), FRONTEND_DIR, BASE_DIR]:
+    if path and os.path.exists(os.path.join(path, 'forms.html')):
+      return send_from_directory(path, 'forms.html')
+  return jsonify({"error": "Forms page not found"}), 404
 
 # Serve Feature Pages
 @app.route('/pages/<path:filename>')
 def serve_pages(filename):
-  return send_from_directory(os.path.join(FRONTEND_DIR, 'pages'), filename)
+  for path in [os.path.join(FRONTEND_DIR, 'pages'), os.path.join(BASE_DIR, 'pages')]:
+    if path and os.path.exists(os.path.join(path, filename)):
+      return send_from_directory(path, filename)
+  return jsonify({"error": "Page not found"}), 404
 
 # Serve CSS, JS, and Assets
 @app.route('/css/<path:filename>')
 def serve_css(filename):
-  return send_from_directory(os.path.join(FRONTEND_DIR, 'css'), filename)
+  for path in [os.path.join(FRONTEND_DIR, 'css'), os.path.join(BASE_DIR, 'css')]:
+    if path and os.path.exists(os.path.join(path, filename)):
+      return send_from_directory(path, filename)
+  return jsonify({"error": "CSS not found"}), 404
 
 @app.route('/js/<path:filename>')
 def serve_js(filename):
-  return send_from_directory(os.path.join(FRONTEND_DIR, 'js'), filename)
+  for path in [os.path.join(FRONTEND_DIR, 'js'), os.path.join(BASE_DIR, 'js')]:
+    if path and os.path.exists(os.path.join(path, filename)):
+      return send_from_directory(path, filename)
+  return jsonify({"error": "JS not found"}), 404
 
 @app.route('/assets/<path:filename>')
 def serve_assets(filename):
