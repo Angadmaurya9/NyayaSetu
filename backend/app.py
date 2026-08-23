@@ -10,6 +10,9 @@ load_dotenv()
 # Set up paths relative to project root
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FRONTEND_DIR = os.path.join(BASE_DIR, 'frontend')
+if not os.path.exists(FRONTEND_DIR):
+  FRONTEND_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'frontend'))
+
 if BASE_DIR not in sys.path:
   sys.path.insert(0, BASE_DIR)
 
