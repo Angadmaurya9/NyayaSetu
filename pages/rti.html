@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RTI Application Builder — NyayaSetu</title>
+  <meta name="description" content="Build structured Right to Information (RTI) applications with automatic Public Authority lookup and PDF export.">
+  
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/rti.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="/" class="brand-logo">
+        <div class="logo-icon" style="background-color: var(--accent-rti);">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <circle cx="11" cy="14" r="2"></circle>
+            <line x1="12.5" y1="15.5" x2="15" y2="18"></line>
+          </svg>
+        </div>
+        <div>
+          <span>NyayaSetu</span>
+          <span class="brand-subtext" style="color: var(--accent-rti);">RTI Builder</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/pages/rights.html" class="nav-link">Rights Navigator</a></li>
+        <li><a href="/pages/rti.html" class="nav-link active active-rti">RTI Builder</a></li>
+        <li><a href="/pages/schemes.html" class="nav-link">Schemes</a></li>
+        <li><a href="/pages/forms.html" class="nav-link">Form Filler</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="lang-selector" id="lang-toggle-btn" title="Toggle Language">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span id="current-lang-text">EN / हिंदी</span>
+        </button>
+        <a href="/" class="btn btn-sm btn-outline">← Back Home</a>
+        <button class="nav-toggle-btn" id="nav-toggle-btn" aria-label="Toggle menu">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="app-main" class="container-narrow" style="padding-top: 2rem;">
+
+    <!-- Feature Overview Landing Header -->
+    <div class="feature-landing-header rti-theme">
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+        <span class="badge" style="background-color: var(--accent-rti-light); color: var(--accent-rti); border: 1px solid var(--accent-rti-border);">
+          REQUEST INFORMATION
+        </span>
+      </div>
+      <h2>RTI Application Builder</h2>
+      <p style="margin-top: 0.35rem; font-size: 1.05rem;">
+        Turn your information request into a structured Right to Information (RTI) application under Section 6(1) of RTI Act 2005.
+      </p>
+      
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin-top: 1.5rem; background-color: var(--bg-warm); padding: 1rem; border-radius: var(--radius-md);">
+        <div>
+          <strong style="font-size: 0.775rem; color: var(--accent-rti);">01 QUESTION</strong>
+          <div style="font-size: 0.8rem; color: var(--text-secondary);">Describe request</div>
+        </div>
+        <div>
+          <strong style="font-size: 0.775rem; color: var(--accent-rti);">02 DETAILS</strong>
+          <div style="font-size: 0.8rem; color: var(--text-secondary);">Location & Year</div>
+        </div>
+        <div>
+          <strong style="font-size: 0.775rem; color: var(--accent-rti);">03 AUTHORITY</strong>
+          <div style="font-size: 0.8rem; color: var(--text-secondary);">Find target PIO</div>
+        </div>
+        <div>
+          <strong style="font-size: 0.775rem; color: var(--accent-rti);">04 REVIEW</strong>
+          <div style="font-size: 0.8rem; color: var(--text-secondary);">Check document</div>
+        </div>
+        <div>
+          <strong style="font-size: 0.775rem; color: var(--accent-rti);">05 DOWNLOAD</strong>
+          <div style="font-size: 0.8rem; color: var(--text-secondary);">Get official PDF</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stepper -->
+    <div class="stepper stepper-rti">
+      <div class="step-item active" id="step-indicator-1">
+        <div class="step-number">1</div>
+        <span class="step-label">Request</span>
+      </div>
+      <div class="step-item" id="step-indicator-2">
+        <div class="step-number">2</div>
+        <span class="step-label">Authority & Location</span>
+      </div>
+      <div class="step-item" id="step-indicator-3">
+        <div class="step-number">3</div>
+        <span class="step-label">RTI Points</span>
+      </div>
+      <div class="step-item" id="step-indicator-4">
+        <div class="step-number">4</div>
+        <span class="step-label">Preview & Export</span>
+      </div>
+    </div>
+
+    <!-- Step 1: Query Description -->
+    <div id="step-view-1">
+      <div class="card">
+        <div class="card-header">
+          <h2>1. What Information Do You Need?</h2>
+          <p>Describe the government project, fund utilization, sanctioned budget, or official document you wish to inspect.</p>
+        </div>
+
+        <form id="rti-step-1-form" onsubmit="event.preventDefault();">
+          <div class="form-group">
+            <label for="rti-query" class="form-label">Describe your request in plain language <span class="required">*</span></label>
+            <textarea id="rti-query" class="form-control" placeholder="e.g. I want to know how much money was sanctioned and spent on repairing the main road in Rampur village during 2023-2024..." required></textarea>
+            <div class="form-hint">Under Section 6(1) of RTI Act 2005, you do not need to give any reason for requesting public information.</div>
+            <div class="form-error">Please enter your request description to proceed.</div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; margin-top: 1.5rem;">
+            <button type="button" class="btn btn-rti btn-lg" id="rti-next-btn-1">
+              <span>Continue to Location & Authority →</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Step 2: Location and Department Details -->
+    <div id="step-view-2" style="display: none;">
+      <div class="card">
+        <div class="card-header">
+          <h2>2. Location & Authority Information</h2>
+          <p>This helps locate the correct Public Information Officer (PIO).</p>
+        </div>
+
+        <form id="rti-step-2-form" onsubmit="event.preventDefault();">
+          <div class="form-group">
+            <label for="rti-applicant-name" class="form-label">Applicant Name <span class="required">*</span></label>
+            <input type="text" id="rti-applicant-name" class="form-control" placeholder="e.g. Ramesh Kumar" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label for="rti-state" class="form-label">State / Union Territory <span class="required">*</span></label>
+              <input type="text" id="rti-state" class="form-control" placeholder="e.g. Uttar Pradesh" required>
+            </div>
+            <div class="form-group">
+              <label for="rti-district" class="form-label">District <span class="required">*</span></label>
+              <input type="text" id="rti-district" class="form-control" placeholder="e.g. Varanasi" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label for="rti-block" class="form-label">Block / Village / Ward</label>
+              <input type="text" id="rti-block" class="form-control" placeholder="e.g. Pindra Block">
+            </div>
+            <div class="form-group">
+              <label for="rti-year" class="form-label">Approximate Year Range</label>
+              <input type="text" id="rti-year" class="form-control" placeholder="e.g. 2023 - 2024">
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; margin-top: 1.5rem;">
+            <button type="button" class="btn btn-outline" onclick="Navigation.goToStep(1)">← Back</button>
+            <button type="button" class="btn btn-rti btn-lg" id="rti-analyze-btn">
+              <span>Find Authority & Draft Points →</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Step 3: Recommended Information Points -->
+    <div id="step-view-3" style="display: none;">
+      <div class="card">
+        <div class="card-header">
+          <h2>3. Recommended RTI Information Points</h2>
+          <p>Review, edit, remove, or add formal questions to include in your application.</p>
+        </div>
+
+        <div id="rti-authority-card" class="alert alert-info">
+          <!-- Authority details injected dynamically -->
+        </div>
+
+        <h4 style="margin-top: 1.5rem; color: var(--primary-navy);">Information Points Requested (Section 6(1)):</h4>
+        <div class="rti-points-list" id="rti-points-container">
+          <!-- Dynamic RTI points -->
+        </div>
+
+        <div style="margin-top: 1rem;">
+          <button type="button" class="btn btn-sm btn-outline" id="rti-add-point-btn">+ Add Information Point</button>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
+          <button type="button" class="btn btn-outline" onclick="Navigation.goToStep(2)">← Back</button>
+          <button type="button" class="btn btn-rti btn-lg" id="rti-generate-preview-btn">
+            <span>Generate Full Application →</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Full Application Preview & Download -->
+    <div id="step-view-4" style="display: none;">
+      <div class="card">
+        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+          <div>
+            <h2>4. Formatted RTI Application Preview</h2>
+            <p>Please review all details before downloading your official application PDF.</p>
+          </div>
+        </div>
+
+        <div class="rti-preview-paper" id="rti-preview-paper">
+          <!-- Formatted RTI application paper view -->
+        </div>
+
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+          <div style="display: flex; gap: 1rem; width: 100%; justify-content: space-between; flex-wrap: wrap;">
+            <button type="button" class="btn btn-outline" onclick="Navigation.goToStep(3)">← Edit Questions</button>
+            <button type="button" class="btn btn-rti btn-lg" id="rti-download-pdf-btn">
+              <span>Download PDF ↓</span>
+            </button>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-secondary);">Review your application before downloading.</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer" style="margin-top: 4rem;">
+    <div class="container text-center" style="font-size: 0.85rem; color: #94A3B8;">
+      © 2026 NyayaSetu • RTI Builder Workspace
+    </div>
+  </footer>
+
+  <script src="/js/translator.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/navigation.js"></script>
+  <script src="/js/validation.js"></script>
+  <script src="/js/rti.js"></script>
+</body>
+</html>
+

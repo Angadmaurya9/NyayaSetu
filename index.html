@@ -2,11 +2,330 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=/frontend/index.html">
-  <script>window.location.href = "/frontend/index.html";</script>
-  <title>NyayaSetu — Redirecting...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NyayaSetu — AI for Civic & Legal Empowerment</title>
+  <meta name="description" content="Understand your civic rights, verify official information, build RTI applications, and check scheme eligibility with NyayaSetu.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/responsive.css">
 </head>
 <body>
-  <p>Redirecting to <a href="/frontend/index.html">NyayaSetu (न्यायसेतु)</a>...</p>
+
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="/" class="brand-logo" id="nav-brand">
+        <div class="logo-icon">
+          <!-- Bridge / Path Icon -->
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19C4 19 8 13 12 13C16 13 20 19 20 19"></path>
+            <path d="M12 4V13"></path>
+            <path d="M6 9L18 9"></path>
+          </svg>
+        </div>
+        <div>
+          <span>NyayaSetu</span>
+          <span class="brand-subtext">न्यायसेतु • Civic Action Assistant</span>
+        </div>
+      </a>
+
+      <ul class="nav-links" id="main-nav-links">
+        <li><a href="#services" class="nav-link">Explore Services</a></li>
+        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+        <li><a href="#trust" class="nav-link">Source Trust</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="lang-selector" id="lang-toggle-btn" title="Toggle Language">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span id="current-lang-text">EN / हिंदी</span>
+        </button>
+
+        <!-- Mobile Navigation Toggle Hamburger Button -->
+        <button class="nav-toggle-btn" id="nav-toggle-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main id="app-main">
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-tag">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>Official Source-Backed Civic Assistant</span>
+        </div>
+
+        <h1 class="hero-title">
+          Confused by a government process?<br>Let's find your next step.
+        </h1>
+
+        <p class="hero-subtitle">
+          Describe what you're trying to solve in your own words. NyayaSetu extracts key facts, checks official sources, and guides you to the right service.
+        </p>
+
+        <!-- Search / Natural Language Problem Textarea Box -->
+        <div class="hero-input-box">
+          <div class="hero-textarea-wrapper">
+            <textarea id="hero-query-input" class="hero-textarea" placeholder="Describe your situation or problem in detail... e.g. My landlord in Prayagraj hasn't returned my ₹15,000 security deposit for two months even though I vacated after serving notice." aria-label="What are you trying to solve?"></textarea>
+          </div>
+
+          <div class="hero-input-actions">
+            <div class="hero-input-tools">
+              <!-- Voice Microphone Button -->
+              <button type="button" class="mic-btn" id="mic-btn" aria-label="Use voice input" aria-pressed="false">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                  <line x1="12" y1="19" x2="12" y2="23"></line>
+                  <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
+                <span class="mic-label">Speak</span>
+              </button>
+
+              <button type="button" class="clear-text-btn" id="clear-text-btn">✕ Clear</button>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-lg" id="hero-submit-btn">
+              <span>Find My Path</span>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Extraction Confirmation Container (Populated dynamically when user submits) -->
+        <div id="confirmation-container"></div>
+
+        <!-- Sample Query Pills -->
+        <div class="hero-examples">
+          <span class="hero-examples-label">Try asking:</span>
+          <button type="button" class="example-pill" data-query="My landlord in Prayagraj has not returned my ₹15,000 security deposit for two months. I asked him twice.">Tenant deposit refund</button>
+          <button type="button" class="example-pill" data-query="I want to know how much money was sanctioned and spent on repairing the main road in Rampur village during 2023-2024.">Road project expenditure RTI</button>
+          <button type="button" class="example-pill" data-query="I am a college student from Uttar Pradesh with family income under ₹2.5 Lakhs. Can I apply for Post-Matric Scholarship?">Scholarship eligibility check</button>
+          <button type="button" class="example-pill" data-query="I need help filling an application form for Income Certificate at Tahsildar office.">Income Certificate Form</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Four Services Grid -->
+    <section class="services-section" id="services">
+      <div class="container">
+        <div class="section-header">
+          <h2>Four Purpose-Built Workflows</h2>
+          <p>Each module has its own visual identity, step-by-step intake, and official document backing.</p>
+        </div>
+
+        <div class="services-grid">
+          
+          <!-- Service Card 1: Rights Navigator (Terracotta Accent) -->
+          <a href="/pages/rights.html" class="service-card" id="card-rights">
+            <div>
+              <div class="service-icon-box">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                </svg>
+              </div>
+              <h3>Rights Navigator</h3>
+              <p>Understand tenant, consumer, or civic rights in plain language. Get clear step-by-step action plans grounded in Model Acts and state rules.</p>
+            </div>
+            <span class="service-link-text">
+              Resolve An Issue →
+            </span>
+          </a>
+
+          <!-- Service Card 2: RTI Application Builder (Deep Blue Accent) -->
+          <a href="/pages/rti.html" class="service-card" id="card-rti">
+            <div>
+              <div class="service-icon-box">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <circle cx="11" cy="14" r="2"></circle>
+                  <line x1="12.5" y1="15.5" x2="15" y2="18"></line>
+                </svg>
+              </div>
+              <h3>RTI Application Builder</h3>
+              <p>Turn your information request into a structured Right to Information (RTI) application with automated PIO authority matching and downloadable PDF.</p>
+            </div>
+            <span class="service-link-text">
+              Build RTI Application →
+            </span>
+          </a>
+
+          <!-- Service Card 3: Scheme Eligibility Checker (Muted Green Accent) -->
+          <a href="/pages/schemes.html" class="service-card" id="card-schemes">
+            <div>
+              <div class="service-icon-box">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  <polyline points="9 12 11 14 15 10"></polyline>
+                </svg>
+              </div>
+              <h3>Scheme Eligibility Checker</h3>
+              <p>Verify whether you qualify for government welfare schemes using deterministic income/category rules and official guideline citations.</p>
+            </div>
+            <span class="service-link-text">
+              Check Scheme Qualification →
+            </span>
+          </a>
+
+          <!-- Service Card 4: Guided Form Filler (Muted Indigo Accent) -->
+          <a href="/pages/forms.html" class="service-card" id="card-forms">
+            <div>
+              <div class="service-icon-box">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                  <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                  <path d="M9 12l2 2 4-4"></path>
+                </svg>
+              </div>
+              <h3>Guided Form Filler</h3>
+              <p>Complete selected government intake forms step-by-step with real-time field validation, clean preview, and print-ready PDF export.</p>
+            </div>
+            <span class="service-link-text">
+              Fill Government Form →
+            </span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="container" id="how-it-works">
+      <div class="how-it-works-section">
+        <div class="section-header">
+          <h2>How NyayaSetu Works</h2>
+          <p>A transparent, 4-step guided path designed to keep citizens in full control.</p>
+        </div>
+
+        <div class="steps-grid">
+          
+          <div class="step-card">
+            <div class="step-badge">01</div>
+            <h4>Describe</h4>
+            <p>Tell us your situation or question in free-form language or voice input. We extract structured details automatically.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-badge">02</div>
+            <h4>Confirm</h4>
+            <p>Review the extracted details (location, amount, issue type) and confirm the recommended workflow.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-badge">03</div>
+            <h4>Verify</h4>
+            <p>Every guidance point is verified against official government guidelines, Gazette notifications, and statutory rules.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-badge">04</div>
+            <h4>Act</h4>
+            <p>Get a clear Case Workspace action plan, document checklist, and official generated PDF ready to file.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust & Source Reliability Section -->
+    <section class="container" id="trust">
+      <div class="trust-banner">
+        <div class="trust-content">
+          <h3>Grounded in Verified Official Sources</h3>
+          <p>NyayaSetu never invents laws, section numbers, or deadlines. All insights link directly to official ministry guidelines, gazettes, and acts.</p>
+        </div>
+        <div>
+          <a href="#services" class="btn btn-outline" style="background-color: #FFFFFF; color: var(--primary-navy);">
+            Explore Workflows
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>NyayaSetu (न्यायसेतु)</h3>
+          <p>An AI-powered Civic Action Assistant helping citizens understand their rights, verify official information, and know what to do next.</p>
+        </div>
+
+        <div>
+          <div class="footer-title">Modules</div>
+          <ul class="footer-links">
+            <li><a href="/pages/rights.html">Rights Navigator</a></li>
+            <li><a href="/pages/rti.html">RTI Application Builder</a></li>
+            <li><a href="/pages/schemes.html">Scheme Eligibility</a></li>
+            <li><a href="/pages/forms.html">Guided Form Filler</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-title">Resources</div>
+          <ul class="footer-links">
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#trust">Source Verification</a></li>
+            <li><a href="https://rti.gov.in" target="_blank" rel="noopener">Official RTI Portal ↗</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-title">Legal & Civic</div>
+          <ul class="footer-links">
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Civic Safety Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-disclaimer">
+          <strong>Disclaimer:</strong> NyayaSetu provides general civic and legal information based on official sources. It does not provide binding legal advice or formal representation.
+        </div>
+        <div>
+          © 2026 NyayaSetu. Built for Civic & Legal Empowerment.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Core JavaScript Controllers -->
+  <script src="/js/translator.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/navigation.js"></script>
+  <script src="/js/voice.js"></script>
+  <script src="/js/validation.js"></script>
+  <script src="/js/app.js"></script>
 </body>
 </html>
+

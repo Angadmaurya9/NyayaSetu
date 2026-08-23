@@ -1,14 +1,5 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index.py" },
-    { "source": "/", "destination": "/frontend/index.html" },
-    { "source": "/rights", "destination": "/frontend/pages/rights.html" },
-    { "source": "/rti", "destination": "/frontend/pages/rti.html" },
-    { "source": "/schemes", "destination": "/frontend/pages/schemes.html" },
-    { "source": "/forms", "destination": "/frontend/pages/forms.html" },
-    { "source": "/css/(.*)", "destination": "/frontend/css/$1" },
-    { "source": "/js/(.*)", "destination": "/frontend/js/$1" },
-    { "source": "/pages/(.*)", "destination": "/frontend/pages/$1" },
-    { "source": "/assets/(.*)", "destination": "/frontend/assets/$1" }
+    { "source": "/api/(.*)", "destination": "/api/index.py" }
   ]
 }

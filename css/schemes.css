@@ -1,0 +1,42 @@
+/* Scheme Checker Specific Styles */
+.eligibility-status-banner {
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.status-eligible {
+  background-color: var(--success-green-light);
+  border: 1px solid var(--success-green);
+  color: var(--success-green);
+}
+
+.status-ineligible {
+  background-color: var(--danger-red-light);
+  border: 1px solid var(--danger-red);
+  color: var(--danger-red);
+}
+
+.status-needs-info {
+  background-color: var(--warning-amber-light);
+  border: 1px solid var(--warning-amber);
+  color: var(--warning-amber);
+}
+
+.doc-checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.doc-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
