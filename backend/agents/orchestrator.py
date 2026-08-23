@@ -17,13 +17,13 @@ class OrchestratorAgent:
       return res
 
     # Deterministic rule fallback for standard queries
-    if any(k in q_lower for k in ["rti", "information", "spent", "sanctioned", "road project", "budget"]):
+    if any(k in q_lower for k in ["rti", "information", "spent", "sanctioned", "road project", "budget", "आरटीआई", "सूचना", "खर्च", "सड़क"]):
       intent = "rti"
       summary = "Right to Information (RTI) Request"
-    elif any(k in q_lower for k in ["scholarship", "eligible", "scheme", "kisan", "awas"]):
+    elif any(k in q_lower for k in ["scholarship", "eligible", "scheme", "kisan", "awas", "योजना", "छात्रवृत्ति", "पात्रता", "किसान", "आवास"]):
       intent = "scheme"
       summary = "Government Scheme Eligibility Check"
-    elif any(k in q_lower for k in ["form", "fill", "income certificate", "application"]):
+    elif any(k in q_lower for k in ["form", "fill", "income certificate", "application", "फॉर्म", "आवेदन", "प्रमाण पत्र", "आय"]):
       intent = "form"
       summary = "Guided Form Filling Assistance"
     else:
@@ -65,13 +65,13 @@ class OrchestratorAgent:
 
     # Issue type inference
     q_lower = query.lower()
-    if "landlord" in q_lower or "deposit" in q_lower or "rent" in q_lower:
+    if any(k in q_lower for k in ["landlord", "deposit", "rent", "मकान मालिक", "किराया", "डिपॉजिट", "रिफंड"]):
       issue_type = "Tenant–Landlord Security Deposit Dispute"
-    elif "road" in q_lower or "spent" in q_lower or "rti" in q_lower:
+    elif any(k in q_lower for k in ["road", "spent", "rti", "सड़क", "खर्च", "सूचना", "आरटीआई"]):
       issue_type = "Public Works & Fund Expenditure Query"
-    elif "scholarship" in q_lower or "scheme" in q_lower:
+    elif any(k in q_lower for k in ["scholarship", "scheme", "छात्रवृत्ति", "योजना"]):
       issue_type = "Welfare Scheme Qualification Check"
-    elif "form" in q_lower or "certificate" in q_lower:
+    elif any(k in q_lower for k in ["form", "certificate", "फॉर्म", "प्रमाण पत्र"]):
       issue_type = "Official Certificate / Form Intake"
     else:
       issue_type = "General Civic Issue"

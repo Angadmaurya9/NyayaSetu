@@ -31,7 +31,7 @@ const VoiceInput = {
       this.recognition = new SpeechRecognition();
       this.recognition.continuous = true;
       this.recognition.interimResults = true;
-      this.recognition.lang = 'en-IN'; // Multi-lingual default for Indian accent / English
+      this.recognition.lang = (window.Translator && window.Translator.currentLang === 'hi') ? 'hi-IN' : 'en-IN';
 
       this.recognition.onstart = () => {
         this.isListening = true;
@@ -78,6 +78,7 @@ const VoiceInput = {
   startListening() {
     if (!this.recognition) return;
     try {
+      this.recognition.lang = (window.Translator && window.Translator.currentLang === 'hi') ? 'hi-IN' : 'en-IN';
       if (this.targetElement) {
         // Save current base text
         this.targetElement.setAttribute('data-base-text', this.targetElement.value.trim());

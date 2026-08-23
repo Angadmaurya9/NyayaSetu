@@ -114,19 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Language Toggle Handler
-  const langBtn = document.getElementById('lang-toggle-btn');
-  if (langBtn) {
-    langBtn.addEventListener('click', () => {
-      const textSpan = document.getElementById('current-lang-text');
-      if (textSpan.textContent.includes('EN')) {
-        textSpan.textContent = 'हिंदी / EN';
-        alert('Devanagari Hindi assistance active. Interface labels rendered in bilingual format.');
-      } else {
-        textSpan.textContent = 'EN / हिंदी';
-      }
-    });
-  }
+
 });
 
 function renderExtractionConfirmation(data, rawQuery) {

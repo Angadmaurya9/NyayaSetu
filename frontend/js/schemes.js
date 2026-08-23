@@ -91,8 +91,8 @@ function renderSchemeResults(data) {
         <span class="badge ${data.status === 'eligible' ? 'badge-success' : (data.status === 'ineligible' ? 'badge-danger' : 'badge-warning')}" style="font-size: 0.9rem;">
           ${badgeText}
         </span>
-        <h2 style="font-size: 1.6rem; margin-top: 0.5rem; color: inherit;">${data.scheme_name || 'Central Post-Matric Scholarship'}</h2>
-        <p style="color: inherit; opacity: 0.9; font-weight: 500;">Deterministic Rule Check: ${data.rule_evaluation || 'Passed income and course qualification threshold'}</p>
+        <h2 style="font-size: 1.6rem; margin-top: 0.5rem; color: inherit;">${data.scheme_name || 'Government Welfare Scheme'}</h2>
+        <p style="color: inherit; opacity: 0.9; font-weight: 500;">Deterministic Rule Check: ${data.rule_evaluation || 'Passed income and eligibility qualification threshold'}</p>
       </div>
     </div>
 
@@ -101,7 +101,7 @@ function renderSchemeResults(data) {
       <div class="card-header">
         <h3>1. Detailed Evaluation & Reasoning</h3>
       </div>
-      <p style="margin-top: 0.5rem; font-size: 1rem; color: var(--text-primary); line-height: 1.6;">${data.reason || 'Your annual family income is within the required limit (₹2,50,000/yr), and your current course qualifies under Post-Matric guidelines.'}</p>
+      <p style="margin-top: 0.5rem; font-size: 1rem; color: var(--text-primary); line-height: 1.6;">${data.reason || 'Your reported annual family income is within the required eligibility limit for this scheme.'}</p>
     </div>
 
     <!-- Mandatory Required Documents Checklist -->
@@ -112,37 +112,123 @@ function renderSchemeResults(data) {
       <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Check off documents as you organize them:</p>
       <div>
         ${UI.renderChecklist(data.required_documents || [
-          "Income Certificate issued by competent Revenue Authority (Tahsildar/SDM)",
-          "Domicile / Residence Certificate of state",
-          "Aadhaar Card linked with Bank Account (DBT active)",
-          "Recent Marksheets & Institute Fee Receipt",
-          "Caste / Category Certificate (if applicable)"
+          "Government-issued Income Certificate",
+          "State Domicile / Residence Certificate",
+          "Aadhaar Card linked with Bank Account"
         ])}
       </div>
     </div>
 
-    <!-- Official Scheme Sources (Compact Default Accordion) -->
+    <!-- Official Scheme Sources -->
     ${UI.renderCompactSources(data.sources || [
       {
-        title: "Ministry of Social Justice & Empowerment Guidelines",
-        section: "Post-Matric Scholarship Rule 4.1",
-        snippet: "Scholarship is awarded to eligible students whose parents/guardians income from all sources does not exceed INR 2,50,000 per annum.",
+        title: `${data.scheme_name || 'Scheme'} Official Guidelines`,
+        section: "Section 4 — Eligibility Criteria",
+        snippet: "Applicant qualifies based on official income threshold and category guidelines.",
         type: "Official Government Portal",
-        url: "https://scholarships.gov.in"
+        url: "https://india.gov.in"
       }
     ])}
 
     <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 2rem;">
       <button class="btn btn-outline" onclick="Navigation.goToStep(1)">← Check Another Scheme</button>
-      <a href="/pages/forms.html" class="btn btn-form">Fill Scholarship Intake Form →</a>
+      <a href="/pages/forms.html" class="btn btn-form">Proceed to Guided Form →</a>
     </div>
   `;
+
+  // Re-apply language translation if Hindi is active
+  if (window.Translator && window.Translator.currentLang === 'hi') {
+    window.Translator.applyLanguage('hi');
+  }
 }
 
 function getMockSchemeData(payload) {
+  const schemeId = payload.scheme_id || 'post_matric_scholarship';
+
+  if (schemeId === 'pm_awas_yojana') {
+    const isEligible = payload.income <= 300000;
+    return {
+      scheme_name: 'Pradhan Mantri Awas Yojana (PMAY - Housing for All)',
+      status: isEligible ? 'eligible' : 'ineligible',
+      rule_evaluation: isEligible ? 'Income threshold check PASSED (<= ₹3,00,000)' : 'Income threshold check EXCEEDED (> ₹3,00,000)',
+      reason: isEligible 
+        ? `Based on PMAY official guidelines, your reported annual family income of ₹${payload.income.toLocaleString('en-IN')} meets the EWS / LIG housing subsidy criteria in ${payload.state || 'your state'}.`
+        : `Your reported income of ₹${payload.income.toLocaleString('en-IN')} exceeds the maximum prescribed ceiling of ₹3,00,000 per annum under EWS guidelines.`,
+      required_documents: [
+        "Aadhaar Card of all family members",
+        "Income Certificate / Salary Slip / Form 16",
+        "Affidavit stating applicant does not own a pucca house in India",
+        "Bank Account details & PAN Card",
+        "Land / Property ownership documents (for Rural / Construction)"
+      ],
+      sources: [
+        {
+          title: "PMAY Official Guidelines",
+          section: "Section 3 — Eligibility & Criteria",
+          snippet: "Beneficiary family should not own a pucca house either in his/her name or in the name of any member of his/her family in any part of India.",
+          type: "Ministry of Housing and Urban Affairs",
+          url: "https://pmaymis.gov.in"
+        }
+      ]
+    };
+  }
+
+  if (schemeId === 'pm_kisan') {
+    const isEligible = payload.income <= 500000;
+    return {
+      scheme_name: 'PM Kisan Samman Nidhi Scheme',
+      status: isEligible ? 'eligible' : 'ineligible',
+      rule_evaluation: isEligible ? 'Landholding & Income check PASSED' : 'Income check EXCEEDED (> ₹5,00,000)',
+      reason: isEligible 
+        ? `Based on PM Kisan guidelines, small and marginal farmer families in ${payload.state || 'your state'} qualify for ₹6,000 annual income support.`
+        : `Reported income exceeds eligibility limit for small/marginal farmer status under PM Kisan.`,
+      required_documents: [
+        "Landholding Record (Khata/Khasra)",
+        "Aadhaar Card",
+        "Bank Account details linked with Aadhaar"
+      ],
+      sources: [
+        {
+          title: "PM Kisan Official Guidelines",
+          section: "Section 2 — Eligibility",
+          snippet: "Financial benefit of Rs 6000/- per year is transferable directly into bank accounts of eligible farmer families.",
+          type: "Ministry of Agriculture & Farmers Welfare",
+          url: "https://pmkisan.gov.in"
+        }
+      ]
+    };
+  }
+
+  if (schemeId === 'bocw_welfare') {
+    const isEligible = payload.income <= 200000;
+    return {
+      scheme_name: 'Building & Other Construction Workers (BOCW) Welfare Scheme',
+      status: isEligible ? 'eligible' : 'ineligible',
+      rule_evaluation: isEligible ? 'Construction Worker Income Limit PASSED (<= ₹2,00,000)' : 'Income check EXCEEDED (> ₹2,00,000)',
+      reason: isEligible 
+        ? `You qualify for BOCW worker welfare assistance and financial aid in ${payload.state || 'your state'}.`
+        : `Income exceeds eligibility limit under BOCW guidelines.`,
+      required_documents: [
+        "BOCW Worker Registration Card (90 days work certificate)",
+        "Aadhaar Card & Bank Passbook copy",
+        "Income & Domicile Certificate"
+      ],
+      sources: [
+        {
+          title: "BOCW Welfare Board Guidelines",
+          section: "Rule 4 — Welfare Benefits",
+          snippet: "Registered construction workers who completed 90 days of work in preceding year are eligible.",
+          type: "Ministry of Labour & Employment",
+          url: "https://labour.gov.in"
+        }
+      ]
+    };
+  }
+
+  // Default Post-Matric Scholarship
   const isEligible = payload.income <= 250000;
   return {
-    scheme_name: payload.scheme_id === 'pm_kisan' ? 'PM Kisan Samman Nidhi' : 'Central Post-Matric Scholarship Scheme',
+    scheme_name: 'Central Sector Post-Matric Scholarship Scheme',
     status: isEligible ? 'eligible' : 'ineligible',
     rule_evaluation: isEligible ? 'Income threshold check PASSED (<= ₹2,50,000)' : 'Income threshold check EXCEEDED (> ₹2,50,000)',
     reason: isEligible 
@@ -165,4 +251,3 @@ function getMockSchemeData(payload) {
     ]
   };
 }
-

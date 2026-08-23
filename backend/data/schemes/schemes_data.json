@@ -20,8 +20,35 @@
     "required_documents": [
       "Landholding Record (Khata/Khasra)",
       "Aadhaar Card",
-      "Bank Account details"
+      "Bank Account details linked with Aadhaar"
     ],
     "source_url": "https://pmkisan.gov.in"
+  },
+  "pm_awas_yojana": {
+    "name": "Pradhan Mantri Awas Yojana (PMAY - Housing for All)",
+    "ministry": "Ministry of Housing and Urban Affairs (MoHUA)",
+    "max_income_ceiling": 300000,
+    "eligible_categories": ["GEN", "OBC", "SC", "ST", "EWS"],
+    "required_documents": [
+      "Aadhaar Card of all family members",
+      "Income Certificate / Salary Slip / Form 16",
+      "Affidavit stating applicant does not own a pucca house in India",
+      "Bank Account details & PAN Card",
+      "Land / Property ownership documents (for Rural / Construction)"
+    ],
+    "source_url": "https://pmaymis.gov.in"
+  },
+  "bocw_welfare": {
+    "name": "Building & Other Construction Workers (BOCW) Welfare Scheme",
+    "ministry": "Ministry of Labour & Employment / State Labour Board",
+    "max_income_ceiling": 200000,
+    "eligible_categories": ["GEN", "OBC", "SC", "ST", "EWS"],
+    "required_documents": [
+      "BOCW Worker Registration Card (90 days work certificate)",
+      "Aadhaar Card & Bank Passbook copy",
+      "Income & Domicile Certificate",
+      "Passport size photographs"
+    ],
+    "source_url": "https://labour.gov.in"
   }
 }

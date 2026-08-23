@@ -40,6 +40,14 @@
       </ul>
 
       <div class="nav-actions">
+        <button class="lang-selector" id="lang-toggle-btn" title="Toggle Language">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span id="current-lang-text">EN / हिंदी</span>
+        </button>
         <a href="/" class="btn btn-sm btn-outline">← Back Home</a>
         <button class="nav-toggle-btn" id="nav-toggle-btn" aria-label="Toggle menu">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -196,6 +204,7 @@
     </div>
   </footer>
 
+  <script src="/js/translator.js"></script>
   <script src="/js/api.js"></script>
   <script src="/js/ui.js"></script>
   <script src="/js/navigation.js"></script>
