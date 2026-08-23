@@ -76,6 +76,11 @@ def serve_assets(filename):
     os.makedirs(assets_dir, exist_ok=True)
   return send_from_directory(assets_dir, filename)
 
+@app.route('/favicon.ico')
+def favicon():
+  return ('', 204)
+
+
 # Orchestrator API endpoint
 @app.route('/api/orchestrate', methods=['POST'])
 def orchestrate():

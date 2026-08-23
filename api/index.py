@@ -10,3 +10,5 @@ from backend.app import app
 
 # Vercel serverless function export
 app = app
+handler = app
+

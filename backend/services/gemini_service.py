@@ -1,6 +1,7 @@
 import os
 import json
 import re
+import requests
 
 class GeminiService:
   @property
@@ -10,7 +11,7 @@ class GeminiService:
   def generate_json_response(self, prompt: str, system_instruction: str = "") -> dict:
     """
     Safely call Gemini API server-side using HTTP REST API.
-    Cycles through available model versions (gemini-3.6-flash, gemini-2.5-flash, etc.) for high availability.
+    Uses strict 3s timeout to ensure serverless functions never exceed execution limits.
     """
     key = self.api_key
     if not key or key == "your_gemini_api_key_here":
@@ -20,11 +21,8 @@ class GeminiService:
     candidate_models = [
       "gemini-3.6-flash",
       "gemini-2.5-flash",
-      "gemini-flash-latest",
-      "gemini-1.5-flash"
+      "gemini-flash"
     ]
-
-    import requests
 
     for model in candidate_models:
       try:
@@ -37,7 +35,7 @@ class GeminiService:
           "generationConfig": {"response_mime_type": "application/json"}
         }
 
-        res = requests.post(url, headers=headers, json=payload, timeout=12)
+        res = requests.post(url, headers=headers, json=payload, timeout=3)
         if res.status_code == 200:
           data = res.json()
           candidates = data.get('candidates', [])
