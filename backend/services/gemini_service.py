@@ -20,8 +20,9 @@ class GeminiService:
 
     candidate_models = [
       "gemini-3.6-flash",
-      "gemini-2.5-flash",
-      "gemini-flash"
+      "gemini-3.5-flash",
+      "gemini-3.1-flash-lite",
+      "gemini-flash-latest"
     ]
 
     for model in candidate_models:
@@ -35,7 +36,7 @@ class GeminiService:
           "generationConfig": {"response_mime_type": "application/json"}
         }
 
-        res = requests.post(url, headers=headers, json=payload, timeout=3)
+        res = requests.post(url, headers=headers, json=payload, timeout=5)
         if res.status_code == 200:
           data = res.json()
           candidates = data.get('candidates', [])

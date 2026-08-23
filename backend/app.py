@@ -73,7 +73,12 @@ def serve_js(filename):
 def serve_assets(filename):
   assets_dir = os.path.join(FRONTEND_DIR, 'assets')
   if not os.path.exists(assets_dir):
-    os.makedirs(assets_dir, exist_ok=True)
+    try:
+      os.makedirs(assets_dir, exist_ok=True)
+    except Exception:
+      pass
+  if not os.path.exists(os.path.join(assets_dir, filename)):
+    return jsonify({"error": "Asset not found"}), 404
   return send_from_directory(assets_dir, filename)
 
 @app.route('/favicon.ico')
