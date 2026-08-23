@@ -86,6 +86,7 @@ class TestNyayaSetuBackend(unittest.TestCase):
     for route in ['/', '/rights', '/rti', '/schemes', '/forms']:
       res = self.client.get(route)
       self.assertEqual(res.status_code, 200, f"Route {route} failed")
+      res.close()
 
   def test_scheme_eligibility_rule(self):
     # Eligible case
